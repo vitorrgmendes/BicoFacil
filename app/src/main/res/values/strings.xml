@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BicoFacil</string>
+    <string name="btnEntrar">Entrar</string>
+    <string name="btnSair">Sair</string>
+    <string name="btnCadastrar">Cadastrar</string>
+    <string name="txtCadastro">Cadastre-se aqui!</string>
+    <string name="txtTelaCadastrar">Cadastre-se!</string>
+</resources>
