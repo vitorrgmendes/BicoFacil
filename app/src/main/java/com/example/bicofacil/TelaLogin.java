@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class TelaLogin extends AppCompatActivity
@@ -17,7 +18,11 @@ public class TelaLogin extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_login);
 
+        navBar navBar = new navBar();
+
         inicializarComponentes();
+
+        navBar.onCreate(savedInstanceState);
 
         txtCadastrar.setOnClickListener(new View.OnClickListener()
         {
