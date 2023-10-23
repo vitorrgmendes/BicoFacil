@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.bicofacil.navbar.home.Home"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favoritos"
+        android:name="com.example.bicofacil.navbar.favoritos.Favoritos"
+        android:label="@string/title_favoritos"
+        tools:layout="@layout/fragment_favoritos">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.bicofacil.navbar.perfil.Perfil"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_perfil">
+    </fragment>
+</navigation>
