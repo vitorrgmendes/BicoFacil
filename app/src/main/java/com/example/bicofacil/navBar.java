@@ -14,11 +14,14 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnFavoritos;
     private ImageButton btnPerfil;
     public NavController navController;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bar);
+
+        db = Conexao.getInstance(this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();
