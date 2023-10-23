@@ -22,42 +22,21 @@
 
         <ImageButton
             android:id="@+id/btnPerfil"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#251863"
             android:contentDescription="Ícone que acessa o perfil de usuário."
             android:src="@drawable/baseline_account_circle_black_48"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            app:tint="#7ED957" />
+            style="@style/ButtonMenu"/>
 
         <ImageButton
             android:id="@+id/btnHome"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#251863"
             android:contentDescription="Ícone que acessa a tela inicial."
             app:srcCompat="@drawable/baseline_home_black_48"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            app:tint="#7ED957" />
+            style="@style/ButtonMenu"/>
 
         <ImageButton
             android:id="@+id/btnFavoritos"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#251863"
             android:contentDescription="Ícone que acessa a tela Favoritos."
             app:srcCompat="@drawable/baseline_favorite_black_36"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            app:tint="#7ED957" />
+            style="@style/ButtonMenu" />
 
     </LinearLayout>
 
