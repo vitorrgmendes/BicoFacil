@@ -8,35 +8,29 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class TelaLogin extends AppCompatActivity
+public class TelaLogin extends AppCompatActivity implements View.OnClickListener
 {
     private TextView txtCadastrar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_login);
 
-        navBar navBar = new navBar();
-
         inicializarComponentes();
-
-        navBar.onCreate(savedInstanceState);
-
-        txtCadastrar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent telaCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
-                startActivity(telaCadastro);
-            }
-        });
+        txtCadastrar.setOnClickListener(this);
     }
 
     private void inicializarComponentes()
     {
         txtCadastrar = findViewById(R.id.txt_cadastro);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v==txtCadastrar){
+            Intent telaCadastro = new Intent(TelaLogin.this, TelaCadastro.class);
+            startActivity(telaCadastro);}
     }
 }

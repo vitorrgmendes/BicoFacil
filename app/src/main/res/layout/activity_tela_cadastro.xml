@@ -4,74 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgorund_login"
-    tools:context=".TelaCadastro">
+    tools:context=".navBar">
 
-    <TextView
-        android:id="@+id/tituloCadastrar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/txtTelaCadastrar"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:background="#251863"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintVertical_bias="1.0">
 
-    <View
-        android:id="@+id/containerComponents"
-        style="@style/ContainerComponents"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloCadastrar"
-        />
+        <ImageButton
+            android:id="@+id/btnPerfil"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#251863"
+            android:contentDescription="Ícone que acessa o perfil de usuário."
+            android:src="@drawable/baseline_account_circle_black_48"
+            app:tint="#7ED957"
+            app:layout_constraintStart_toStartOf="@id/navBar"
+            app:layout_constraintEnd_toEndOf="@id/navBar"
+            app:layout_constraintTop_toTopOf="@id/navBar"/>
 
-    <EditText
-        android:id="@+id/edit_nome"
-        style="@style/EditTextLogin"
-        android:hint="Nome"
-        android:drawableRight="@drawable/ic_person"
-        android:inputType="textPersonName"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintTop_toTopOf="@id/containerComponents"
-        />
+        <ImageButton
+            android:id="@+id/btnHome"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#251863"
+            android:contentDescription="Ícone que acessa a tela inicial."
+            app:layout_constraintEnd_toEndOf="@id/navBar"
+            app:layout_constraintStart_toStartOf="@id/navBar"
+            app:layout_constraintTop_toTopOf="@id/navBar"
+            app:srcCompat="@drawable/baseline_home_black_48"
+            app:tint="#7ED957" />
 
-    <EditText
-        android:id="@+id/edit_email"
-        style="@style/EditTextLogin"
-        android:hint="Email"
-        android:drawableRight="@drawable/ic_email"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/edit_nome"
-        />
+        <ImageButton
+            android:id="@+id/btnFavoritos"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="#251863"
+            app:srcCompat="@drawable/baseline_favorite_black_36"
+            android:contentDescription="Ícone que acessa a tela Favoritos."
+            app:tint="#7ED957"
+            app:layout_constraintStart_toStartOf="@id/navBar"
+            app:layout_constraintEnd_toEndOf="@id/navBar"
+            app:layout_constraintTop_toTopOf="@id/navBar"/>
 
-    <EditText
-        android:id="@+id/edit_password"
-        style="@style/EditTextLogin"
-        android:hint="Senha"
-        android:drawableRight="@drawable/ic_password"
-        android:inputType="numberPassword"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/edit_email"
-        />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_cadastrar"
-        style="@style/ButtonCadastrar"
-        android:text="@string/btnCadastrar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/containerComponents"
-        />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

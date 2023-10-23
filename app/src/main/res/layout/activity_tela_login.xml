@@ -12,7 +12,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgorund_login"
     tools:context=".TelaLogin">
-    <include layout="@layout/activity_nav_bar" />/
 
     <ImageView
         android:id="@+id/logo"

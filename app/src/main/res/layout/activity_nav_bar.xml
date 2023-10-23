@@ -1,62 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".navBar">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/navBar"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="0"
+        android:orientation="horizontal"
         android:background="#251863"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:layout_gravity="bottom">
 
         <ImageButton
             android:id="@+id/btnPerfil"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#251863"
             android:contentDescription="Ícone que acessa o perfil de usuário."
             android:src="@drawable/baseline_account_circle_black_48"
-            app:tint="#7ED957"
-            app:layout_constraintStart_toStartOf="@id/navBar"
-            app:layout_constraintEnd_toEndOf="@id/navBar"
-            app:layout_constraintTop_toTopOf="@id/navBar"/>
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:tint="#7ED957" />
 
         <ImageButton
             android:id="@+id/btnHome"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:backgroundTint="#251863"
             android:contentDescription="Ícone que acessa a tela inicial."
-            app:layout_constraintEnd_toEndOf="@id/navBar"
-            app:layout_constraintStart_toStartOf="@id/navBar"
-            app:layout_constraintTop_toTopOf="@id/navBar"
             app:srcCompat="@drawable/baseline_home_black_48"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
             app:tint="#7ED957" />
 
         <ImageButton
             android:id="@+id/btnFavoritos"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="#251863"
-            app:srcCompat="@drawable/baseline_favorite_black_36"
             android:contentDescription="Ícone que acessa a tela Favoritos."
-            app:tint="#7ED957"
-            app:layout_constraintStart_toStartOf="@id/navBar"
-            app:layout_constraintEnd_toEndOf="@id/navBar"
-            app:layout_constraintTop_toTopOf="@id/navBar"/>
+            app:srcCompat="@drawable/baseline_favorite_black_36"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            app:tint="#7ED957" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+
+
+
+
+
+
