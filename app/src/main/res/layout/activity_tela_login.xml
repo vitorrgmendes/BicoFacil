@@ -27,8 +27,8 @@
         style="@style/ContainerComponents"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        />
+        app:layout_constraintTop_toBottomOf="@id/logo"/>
+
 
     <EditText
         android:id="@+id/edit_email"
@@ -47,7 +47,7 @@
         style="@style/EditTextLogin"
         android:hint="Senha"
         android:drawableRight="@drawable/ic_password"
-        android:inputType="numberPassword"
+        android:inputType="textPassword"
         android:maxLines="1"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
@@ -56,7 +56,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_entrar"
-        style="@style/ButtonLogin"
+        style="@style/ButtonCadastrar"
         android:text="@string/btnEntrar"
         app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
@@ -65,21 +65,20 @@
 
     <ProgressBar
         android:id="@+id/barra_progresso"
-        android:visibility="invisible"
-        android:indeterminateTint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/containerComponents"
-        />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_entrar" />
 
     <TextView
         android:id="@+id/txt_cadastro"
         android:text="@string/txtCadastro"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="#E4E0FF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

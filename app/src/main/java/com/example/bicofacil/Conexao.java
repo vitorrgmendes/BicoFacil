@@ -1,7 +1,6 @@
 package com.example.bicofacil;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.room.Room;
 

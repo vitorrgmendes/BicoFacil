@@ -2,76 +2,91 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CorTeladeFundo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DAC9FA"
     tools:context=".TelaCadastro">
 
-    <TextView
+    <ImageView
         android:id="@+id/tituloCadastrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/txtTelaCadastrar"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="10dp"
+        android:scaleX="1.4"
+        android:scaleY="1.8"
+        android:src="@drawable/img_cadastrese"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/containerComponents"
         style="@style/ContainerComponents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloCadastrar"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tituloCadastrar" />
 
     <EditText
         android:id="@+id/edit_nome"
         style="@style/EditTextLogin"
-        android:hint="Nome"
         android:drawableRight="@drawable/ic_person"
+        android:hint="Nome"
         android:inputType="textPersonName"
         android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintTop_toTopOf="@id/containerComponents"
-        />
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintTop_toTopOf="@id/containerComponents" />
 
     <EditText
         android:id="@+id/edit_email"
         style="@style/EditTextLogin"
-        android:hint="Email"
         android:drawableRight="@drawable/ic_email"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/edit_nome"
-        />
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintTop_toBottomOf="@id/edit_nome" />
+
+    <EditText
+        android:id="@+id/edit_telefone"
+        style="@style/EditTextLogin"
+        android:drawableRight="@drawable/baseline_call_24"
+        android:hint="Telefone"
+        android:inputType="phone"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintTop_toBottomOf="@id/edit_email" />
 
     <EditText
         android:id="@+id/edit_password"
         style="@style/EditTextLogin"
-        android:hint="Senha"
         android:drawableRight="@drawable/ic_password"
-        android:inputType="numberPassword"
+        android:hint="Senha"
+        android:inputType="textPassword"
         android:maxLines="1"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
         app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/edit_email"
-        />
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintTop_toBottomOf="@id/edit_telefone" />
+
+    <EditText
+        android:id="@+id/confirm_password"
+        style="@style/EditTextLogin"
+        android:drawableRight="@drawable/ic_password"
+        android:hint="Confirme a sua Senha"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@id/containerComponents"
+        app:layout_constraintStart_toStartOf="@id/containerComponents"
+        app:layout_constraintTop_toBottomOf="@id/edit_password" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_cadastrar"
         style="@style/ButtonCadastrar"
         android:text="@string/btnCadastrar"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/containerComponents"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerComponents" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

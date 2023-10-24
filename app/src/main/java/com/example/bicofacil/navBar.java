@@ -2,12 +2,14 @@ package com.example.bicofacil;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.bicofacil.BD.usuario.Usuario;
+import com.example.bicofacil.BD.usuario.UsuarioDao;
 
 public class navBar extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnHome;
@@ -15,6 +17,8 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnPerfil;
     public NavController navController;
     private AppDatabase db;
+    private Usuario usuario;
+    private UsuarioDao usuarioDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_nav_bar);
 
         db = Conexao.getInstance(this);
+
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();
@@ -46,3 +51,4 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
         if(v==btnPerfil) navController.navigate(R.id.navigation_perfil);
     }
 }
+
