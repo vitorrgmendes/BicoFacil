@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bicofacil.AppDatabase;
-import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
@@ -32,6 +31,11 @@ public class Cadastro extends Fragment implements View.OnClickListener {
     private Button btnCadastrar;
     private AppDatabase db;
     private UsuarioDao usuarioDao;
+    private String nome;
+    private String email;
+    private String telefone;
+    private String senha;
+    private String confirmSenha;
 
 
     public static Cadastro newInstance() {
@@ -60,34 +64,37 @@ public class Cadastro extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         db = Conexao.getInstance(getContext());
         usuarioDao = db.usuarioDao();
-        mViewModel = new ViewModelProvider(this, new CadastroViewModelFactory(usuarioDao))
+        mViewModel = new ViewModelProvider(this, new UsuarioDaoViewModelFactory(usuarioDao))
                 .get(CadastroViewModel.class);
     }
 
     @Override
     public void onClick(View v) {
-        if(v==btnCadastrar){
-            if(mViewModel.verificarSenhasIguais(edtSenha.getText().toString(),
-                    edtConfirmSenha.getText().toString())==true && mViewModel.
-                    validarSenha(edtSenha.getText().toString())==true && mViewModel.
-                    validarEmail(edtEmail.getText().toString())==true){
 
-                mViewModel.verificarEmailExistente(edtEmail.getText().toString());
+        nome = edtNome.getText().toString();
+        telefone = edtTelefone.getText().toString();
+        email = edtEmail.getText().toString();
+        senha = edtSenha.getText().toString();
+        confirmSenha = edtConfirmSenha.getText().toString();
+
+        if(v==btnCadastrar){
+            if(mViewModel.verificarSenhasIguais(senha, confirmSenha)==true && mViewModel.
+                    validarSenha(senha)==true && mViewModel.validarEmail(email)==true){
+
+                mViewModel.verificarEmailExistente(email);
 
                 mViewModel.getEmailExistente().observe(getViewLifecycleOwner(), existe -> {
                     if (existe != null) {
 
-                        if (existe==false) {
-                            mViewModel.criarNovoUsuario(edtNome.getText().toString(),
-                                    edtTelefone.getText().toString(),edtEmail.getText().toString(),
-                                    edtSenha.getText().toString());
+                        if (existe==false) {mViewModel.criarNovoUsuario(nome, telefone, email,
+                                senha);
 
                             Toast.makeText(getActivity(), "Cadastro realizado com sucesso!",
                                     Toast.LENGTH_SHORT).show();
 
-                            Perfil perfilFragment = new Perfil();
+                            Login loginFragment = new Login();
                             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                            transaction.replace(R.id.fragmentContainerView, perfilFragment);
+                            transaction.replace(R.id.fragmentContainerView, loginFragment);
                             transaction.addToBackStack(null);
                             transaction.commit();
                         }
@@ -99,17 +106,14 @@ public class Cadastro extends Fragment implements View.OnClickListener {
                     }
                 });
                 }
-            if(mViewModel.verificarSenhasIguais(edtSenha.getText().toString(),
-                    edtConfirmSenha.getText().toString())==false){
+            if(mViewModel.verificarSenhasIguais(senha, confirmSenha)==false){
                 Toast.makeText(getActivity(), "Senhas não conferem!",
                         Toast.LENGTH_SHORT).show();}
-            if(mViewModel.
-                    validarSenha(edtSenha.getText().toString())==false){
+            if(mViewModel.validarSenha(senha)==false){
                 Toast.makeText(getActivity(), "A senha deve conter no mínimo 6 caracteres!",
                         Toast.LENGTH_SHORT).show();}
             }
-            if(mViewModel.
-                    validarEmail(edtEmail.getText().toString())==false){
+            if(mViewModel.validarEmail(email)==false){
                 Toast.makeText(getActivity(), "E-mail inválido!",
                         Toast.LENGTH_SHORT).show();}
             }

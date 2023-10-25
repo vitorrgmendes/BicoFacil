@@ -20,4 +20,5 @@ public class Usuario {
     public boolean verificarSenha(String senhaPlana) {
         return Criptografia.verificarSenha(senhaPlana, this.senhaHash);
     }
+
 }
