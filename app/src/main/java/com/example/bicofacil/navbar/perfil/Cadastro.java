@@ -2,7 +2,6 @@ package com.example.bicofacil.navbar.perfil;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,7 @@ public class Cadastro extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_tela_cadastro, container, false);
+        View view = inflater.inflate(R.layout.fragment_tela_cadastro, container, false);
 
         edtNome = view.findViewById(R.id.edit_nome);
         edtEmail = view.findViewById(R.id.edit_email);
@@ -69,52 +68,51 @@ public class Cadastro extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if(v==btnCadastrar){
             if(mViewModel.verificarSenhasIguais(edtSenha.getText().toString(),
-                    edtConfirmSenha.getText().toString())==true){
+                    edtConfirmSenha.getText().toString())==true && mViewModel.
+                    validarSenha(edtSenha.getText().toString())==true && mViewModel.
+                    validarEmail(edtEmail.getText().toString())==true){
 
                 mViewModel.verificarEmailExistente(edtEmail.getText().toString());
 
                 mViewModel.getEmailExistente().observe(getViewLifecycleOwner(), existe -> {
                     if (existe != null) {
+
                         if (existe==false) {
-                            criarNovoUsuario();
-                            Toast.makeText(getActivity(), "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                            mViewModel.criarNovoUsuario(edtNome.getText().toString(),
+                                    edtTelefone.getText().toString(),edtEmail.getText().toString(),
+                                    edtSenha.getText().toString());
+
+                            Toast.makeText(getActivity(), "Cadastro realizado com sucesso!",
+                                    Toast.LENGTH_SHORT).show();
+
                             Perfil perfilFragment = new Perfil();
                             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                             transaction.replace(R.id.fragmentContainerView, perfilFragment);
                             transaction.addToBackStack(null);
                             transaction.commit();
                         }
+
                         if (existe==true) {
-                            Toast.makeText(getActivity(), "Email já cadastrado!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Email já cadastrado!",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
                 }
             if(mViewModel.verificarSenhasIguais(edtSenha.getText().toString(),
                     edtConfirmSenha.getText().toString())==false){
-                Toast.makeText(getActivity(), "Senhas não conferem!", Toast.LENGTH_SHORT).show();}
-
-
-
-        }
-    }
-    private void criarNovoUsuario() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Usuario novoUsuario = new Usuario();
-                    novoUsuario.nome = edtNome.getText().toString();
-                    novoUsuario.telefone = edtTelefone.getText().toString();
-                    novoUsuario.email = edtEmail.getText().toString();
-                    novoUsuario.setSenha(edtSenha.getText().toString());
-                    db.usuarioDao().inserirUsuario(novoUsuario);
-                } catch (android.database.sqlite.SQLiteConstraintException e) {
-
-                }
+                Toast.makeText(getActivity(), "Senhas não conferem!",
+                        Toast.LENGTH_SHORT).show();}
+            if(mViewModel.
+                    validarSenha(edtSenha.getText().toString())==false){
+                Toast.makeText(getActivity(), "A senha deve conter no mínimo 6 caracteres!",
+                        Toast.LENGTH_SHORT).show();}
             }
-        }).start();
-    }
+            if(mViewModel.
+                    validarEmail(edtEmail.getText().toString())==false){
+                Toast.makeText(getActivity(), "E-mail inválido!",
+                        Toast.LENGTH_SHORT).show();}
+            }
+        }
 
-}
+
