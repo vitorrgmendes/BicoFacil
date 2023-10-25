@@ -19,7 +19,6 @@ import com.example.bicofacil.R;
 public class Perfil extends Fragment implements View.OnClickListener{
 
     private PerfilViewModel mViewModel;
-    private TextView txtCadastrar;
 
     public static Perfil newInstance() {
         return new Perfil();
@@ -28,10 +27,9 @@ public class Perfil extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tela_login, container, false);
+        View view = inflater.inflate(R.layout.activity_tela_perfil, container, false);
 
-        txtCadastrar = view.findViewById(R.id.txt_cadastro);
-        txtCadastrar.setOnClickListener(this);
+
 
         return view;
     }
@@ -46,12 +44,5 @@ public class Perfil extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        if(v==txtCadastrar){
-            Cadastro cadastroFragment = new Cadastro();
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, cadastroFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();}
-    }
 
-    }
+    }}

@@ -28,4 +28,8 @@ public interface UsuarioDao {
 
     @Query("SELECT COUNT(*) FROM Usuario WHERE email = :email")
     int emailExiste(String email);
+
+    @Query("SELECT * FROM Usuario WHERE email = :email LIMIT 1")
+    Usuario buscaUsuarioPorEmail(String email);
+
 }
