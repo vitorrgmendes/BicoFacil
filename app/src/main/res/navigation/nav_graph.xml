@@ -21,8 +21,8 @@
 
     <fragment
         android:id="@+id/navigation_perfil"
-        android:name="com.example.bicofacil.navbar.perfil.Perfil"
+        android:name="com.example.bicofacil.navbar.perfil.Login"
         android:label="@string/title_perfil"
-        tools:layout="@layout/fragment_perfil">
+        tools:layout="@layout/fragment_tela_login">
     </fragment>
 </navigation>

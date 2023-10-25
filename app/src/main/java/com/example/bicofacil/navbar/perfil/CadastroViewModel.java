@@ -15,53 +15,46 @@ public class CadastroViewModel extends ViewModel {
     public CadastroViewModel(UsuarioDao usuarioDao) {
         this.usuarioDao = usuarioDao;
     }
-    private final MutableLiveData<String> nome = new MutableLiveData<>();
-    private final MutableLiveData<String> email = new MutableLiveData<>();
-    private final MutableLiveData<String> telefone = new MutableLiveData<>();
-    private final MutableLiveData<String> senha = new MutableLiveData<>();
     private UsuarioDao usuarioDao;
+    public LiveData<Boolean> getEmailExistente() {
+        return emailExistente;
+    }
     private final MutableLiveData<Boolean> emailExistente = new MutableLiveData<>();
+    private static final String SENHA_REGEX = "^.{6,}$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
 
-    public MutableLiveData<String> getNome() {
-        return nome;
-    }
-
-    public MutableLiveData<String> getEmail() {
-        return email;
-    }
-
-    public MutableLiveData<String> getTelefone() {
-        return telefone;
-    }
-
-    public MutableLiveData<String> getSenha() {
-        return senha;
-    }
-
-    public void setNome(String nome) {
-        this.nome.setValue(nome);
-    }
-    public void setEmail(String email) {
-        this.email.setValue(email);
-    }
-    public void setTelefone(String telefone) {
-        this.telefone.setValue(telefone);
-    }
-    public void setSenha(String senha) {
-        this.senha.setValue(senha);
-    }
     public boolean verificarSenhasIguais(String senha, String confirmSenha) {
         return senha.equals(confirmSenha);
     }
 
-    public LiveData<Boolean> getEmailExistente() {
-        return emailExistente;
+    public boolean validarSenha(String senha) {
+        return senha.matches(SENHA_REGEX);
     }
+
+    public boolean validarEmail(String email) {
+        return email.matches(EMAIL_REGEX);
+    }
+    
     public void verificarEmailExistente(String email) {
         new Thread(() -> {
             if(usuarioDao != null) {
                 boolean existe = usuarioDao.emailExiste(email) > 0;
                 emailExistente.postValue(existe);
+            }
+        }).start();
+    }
+
+    public void criarNovoUsuario(String nome, String telefone, String email, String senha) {
+        new Thread(() -> {
+            try {
+                Usuario novoUsuario = new Usuario();
+                novoUsuario.nome = nome;
+                novoUsuario.telefone = telefone;
+                novoUsuario.email = email;
+                novoUsuario.setSenha(senha);
+                usuarioDao.inserirUsuario(novoUsuario);
+            } catch (android.database.sqlite.SQLiteConstraintException e) {
+
             }
         }).start();
     }

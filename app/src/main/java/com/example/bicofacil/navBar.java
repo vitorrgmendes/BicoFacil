@@ -27,8 +27,9 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
 
         db = Conexao.getInstance(this);
 
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragmentContainerView);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();
 
         btnHome = findViewById(R.id.btnHome);
