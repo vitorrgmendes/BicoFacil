@@ -1,7 +1,5 @@
 package com.example.bicofacil.navbar.perfil;
 
-import android.util.Log;
-
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -40,7 +38,7 @@ public class Perfil extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_tela_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_tela_perfil, container, false);
 
         txtNome = view.findViewById(R.id.txtNome);
         txtEmail = view.findViewById(R.id.txtEmail);
