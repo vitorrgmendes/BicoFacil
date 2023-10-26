@@ -19,6 +19,7 @@ import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
+import com.example.bicofacil.navBar;
 
 public class Perfil extends Fragment implements View.OnClickListener{
 
@@ -54,12 +55,15 @@ public class Perfil extends Fragment implements View.OnClickListener{
         super.onActivityCreated(savedInstanceState);
         db = Conexao.getInstance(getContext());
         usuarioDao = db.usuarioDao();
-        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
+        usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
                 usuarioViewModel)).get(PerfilViewModel.class);
     }
 
     @Override
     public void onClick(View v) {
-        mViewModel.atualizandoCampos(txtNome,txtEmail);
+        Log.d("MeuApp", "Valor do nome: " + usuarioViewModel.getNome().getValue());
+        Log.d("MeuApp", "Valor do email: " + usuarioViewModel.getNome().getValue());
+        txtNome.setText(usuarioViewModel.getNome().getValue());
+        txtEmail.setText(usuarioViewModel.getEmail().getValue());
     }}

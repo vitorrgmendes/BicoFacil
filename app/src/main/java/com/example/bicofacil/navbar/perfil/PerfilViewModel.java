@@ -1,5 +1,6 @@
 package com.example.bicofacil.navbar.perfil;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModel;
@@ -17,7 +18,9 @@ public class PerfilViewModel extends ViewModel {
     private UsuarioViewModel usuarioViewModel;
 
     public void atualizandoCampos (TextView nome, TextView email){
+        Log.d("Perfil", "Valor do nome: " + usuarioViewModel.getNome().getValue());
+        Log.d("Perfil", "Valor do email: " + usuarioViewModel.getNome().getValue());
         nome.setText(usuarioViewModel.getNome().getValue());
-        email.setText(usuarioViewModel.getNome().getValue());
+        email.setText(usuarioViewModel.getEmail().getValue());
     }
 }
