@@ -55,7 +55,14 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
 
         if(v==btnFavoritos) navController.navigate(R.id.navigation_favoritos);
 
-        if(v==btnPerfil) navController.navigate(R.id.navigation_perfil);
+        if(v==btnPerfil){
+            Boolean isLogged = usuarioViewModel != null ? usuarioViewModel.getLogin().getValue() : null;
+            if (isLogged == null || !isLogged) {
+            navController.navigate(R.id.navigation_login);}
+            else{
+                navController.navigate(R.id.navigation_perfil);
+            }
+            }
     }
 
     public UsuarioViewModel getUsuarioViewModel() {

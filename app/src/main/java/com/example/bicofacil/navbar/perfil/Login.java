@@ -77,8 +77,6 @@ public class Login extends Fragment implements View.OnClickListener{
 
                         usuarioViewModel.getTelefone().observe(getViewLifecycleOwner(), telefone -> {
                             if (telefone != null) {
-                                Log.d("Login", "Valor do nome: " + usuarioViewModel.getNome().getValue());
-                                Log.d("Login", "Valor do email: " + usuarioViewModel.getNome().getValue());
                                 Perfil perfilFragment = new Perfil();
                                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                                 transaction.replace(R.id.fragmentContainerView, perfilFragment);

@@ -1,6 +1,8 @@
 package com.example.bicofacil.navbar.perfil;
 
 import android.util.Log;
+
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -42,7 +44,6 @@ public class Perfil extends Fragment implements View.OnClickListener{
 
         txtNome = view.findViewById(R.id.txtNome);
         txtEmail = view.findViewById(R.id.txtEmail);
-
         btnSair = view.findViewById(R.id.button_deslogar);
 
         btnSair.setOnClickListener(this);
@@ -58,12 +59,17 @@ public class Perfil extends Fragment implements View.OnClickListener{
         usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
                 usuarioViewModel)).get(PerfilViewModel.class);
+        mViewModel.atualizandoCampos(txtNome,txtEmail);
     }
 
     @Override
     public void onClick(View v) {
-        Log.d("MeuApp", "Valor do nome: " + usuarioViewModel.getNome().getValue());
-        Log.d("MeuApp", "Valor do email: " + usuarioViewModel.getNome().getValue());
-        txtNome.setText(usuarioViewModel.getNome().getValue());
-        txtEmail.setText(usuarioViewModel.getEmail().getValue());
+        if (v==btnSair){
+            usuarioViewModel.setLogin(false);
+            Login loginFragment = new Login();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, loginFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }}

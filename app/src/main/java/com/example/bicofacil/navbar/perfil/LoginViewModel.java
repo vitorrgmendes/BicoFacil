@@ -40,7 +40,7 @@ public class LoginViewModel extends ViewModel {
     public void adicionarDados(String email) {
         new Thread(() -> {
                     Usuario usuario = usuarioDao.buscaUsuarioPorEmail(email);
-
+                    usuarioViewModel.setLogin(true);
                     usuarioViewModel.setId(usuario.id);
                     usuarioViewModel.setNome(usuario.nome);
                     usuarioViewModel.setEmail(usuario.email);

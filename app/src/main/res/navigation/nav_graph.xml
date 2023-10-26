@@ -20,9 +20,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_perfil"
+        android:id="@+id/navigation_login"
         android:name="com.example.bicofacil.navbar.perfil.Login"
         android:label="@string/title_perfil"
         tools:layout="@layout/fragment_tela_login">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.bicofacil.navbar.perfil.Perfil"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/activity_tela_perfil">
     </fragment>
 </navigation>
