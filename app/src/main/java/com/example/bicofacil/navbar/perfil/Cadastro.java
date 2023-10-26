@@ -64,7 +64,7 @@ public class Cadastro extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         db = Conexao.getInstance(getContext());
         usuarioDao = db.usuarioDao();
-        mViewModel = new ViewModelProvider(this, new UsuarioDaoViewModelFactory(usuarioDao))
+        mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao))
                 .get(CadastroViewModel.class);
     }
 

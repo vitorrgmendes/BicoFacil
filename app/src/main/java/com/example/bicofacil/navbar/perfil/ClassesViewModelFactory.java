@@ -6,11 +6,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 
-public class UsuarioDaoViewModelFactory implements ViewModelProvider.Factory {
+public class ClassesViewModelFactory implements ViewModelProvider.Factory {
     private final UsuarioDao usuarioDao;
+    private final UsuarioViewModel usuarioViewModel;
 
-    public UsuarioDaoViewModelFactory(UsuarioDao usuarioDao) {
+    public ClassesViewModelFactory(UsuarioDao usuarioDao) {
         this.usuarioDao = usuarioDao;
+        this.usuarioViewModel = null;
+    }
+
+    public ClassesViewModelFactory(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel) {
+        this.usuarioDao = usuarioDao;
+        this.usuarioViewModel = usuarioViewModel;
     }
 
     @NonNull
@@ -19,7 +26,9 @@ public class UsuarioDaoViewModelFactory implements ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(CadastroViewModel.class)) {
             return (T) new CadastroViewModel(usuarioDao);
         } else if (modelClass.isAssignableFrom(LoginViewModel.class)) {
-            return (T) new LoginViewModel(usuarioDao);
+            return (T) new LoginViewModel(usuarioDao, usuarioViewModel);
+        }else if (modelClass.isAssignableFrom(PerfilViewModel.class)) {
+            return (T) new PerfilViewModel(usuarioDao, usuarioViewModel);
         }
         throw new IllegalArgumentException("Classe de ViewModel desconhecida");
     }
