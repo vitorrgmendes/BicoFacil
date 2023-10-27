@@ -65,29 +65,31 @@ public class Login extends Fragment implements View.OnClickListener{
         email = edtEmail.getText().toString();
         senha = edtSenha.getText().toString();
 
-        if(v==btnEntrar){
+        if (v == btnEntrar) {
+            mViewModel.verificarCredenciais(email, senha);
 
-            mViewModel.verificarCredenciais(email,senha);
+            mViewModel.getCredenciaisCorretas().observe(getViewLifecycleOwner(), event -> {
+                Boolean existe = event.getContentIfNotHandled();
+                if (existe!=null && existe){
+                    mViewModel.adicionarDados(email);
+                    mViewModel.setCredenciaisCorretas(true);
 
-            mViewModel.getCredenciaisCorretas().observe(getViewLifecycleOwner(), existe -> {
-                if (existe != null) {
-                    if (existe) {
+                    usuarioViewModel.getLogin().observe(getViewLifecycleOwner(), login -> {
+                        if (login){
+                            Perfil perfilFragment = new Perfil();
+                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                            transaction.replace(R.id.fragmentContainerView, perfilFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
 
-                        mViewModel.adicionarDados(email);
+                        }
+                    });
+                }else if(existe!=null && !existe){
+                            Toast.makeText(getActivity(), "E-mail e/ou senha não conferem!",
+                                    Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                        usuarioViewModel.getTelefone().observe(getViewLifecycleOwner(), telefone -> {
-                            if (telefone != null) {
-                                Perfil perfilFragment = new Perfil();
-                                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                                transaction.replace(R.id.fragmentContainerView, perfilFragment);
-                                transaction.addToBackStack(null);
-                                transaction.commit();
-                            }});
-                    } else {
-                        Toast.makeText(getActivity(), "E-mail e/ou senha não conferem!",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }});
         }
 
         if(v==txtCadastrar){
@@ -98,4 +100,5 @@ public class Login extends Fragment implements View.OnClickListener{
             transaction.commit();
         }
     }
+
 }

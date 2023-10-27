@@ -17,9 +17,8 @@ public class PerfilViewModel extends ViewModel {
     private UsuarioDao usuarioDao;
     private UsuarioViewModel usuarioViewModel;
 
-    public void atualizandoCampos (TextView nome, TextView email){
-        Log.d("Perfil", "Valor do nome: " + usuarioViewModel.getNome().getValue());
-        Log.d("Perfil", "Valor do email: " + usuarioViewModel.getNome().getValue());
+    public void atualizandoCampos (TextView nome, TextView email, TextView telefone){
+        telefone.setText(usuarioViewModel.getTelefone().getValue());
         nome.setText(usuarioViewModel.getNome().getValue());
         email.setText(usuarioViewModel.getEmail().getValue());
     }

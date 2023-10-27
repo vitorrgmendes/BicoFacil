@@ -26,6 +26,7 @@ public class Perfil extends Fragment implements View.OnClickListener{
     private PerfilViewModel mViewModel;
     private TextView txtNome;
     private TextView txtEmail;
+    private TextView txtTelefone;
     private AppDatabase db;
     private UsuarioDao usuarioDao;
     private UsuarioViewModel usuarioViewModel;
@@ -41,6 +42,7 @@ public class Perfil extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_tela_perfil, container, false);
 
         txtNome = view.findViewById(R.id.txtNome);
+        txtTelefone = view.findViewById(R.id.txtTelefone);
         txtEmail = view.findViewById(R.id.txtEmail);
         btnSair = view.findViewById(R.id.button_deslogar);
 
@@ -57,7 +59,7 @@ public class Perfil extends Fragment implements View.OnClickListener{
         usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
                 usuarioViewModel)).get(PerfilViewModel.class);
-        mViewModel.atualizandoCampos(txtNome,txtEmail);
+        mViewModel.atualizandoCampos(txtNome,txtEmail,txtTelefone);
     }
 
     @Override

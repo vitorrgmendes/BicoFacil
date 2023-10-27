@@ -78,7 +78,7 @@
         android:text="@string/txtCadastro"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#E4E0FF"
+        android:textColor="@color/branco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
