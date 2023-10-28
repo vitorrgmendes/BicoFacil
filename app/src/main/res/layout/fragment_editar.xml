@@ -95,7 +95,7 @@
         android:drawableRight="@drawable/baseline_call_24"
         android:hint="Telefone"
         android:layout_marginTop="12dp"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

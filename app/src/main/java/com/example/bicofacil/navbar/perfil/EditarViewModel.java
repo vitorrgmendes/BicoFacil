@@ -26,6 +26,17 @@ public class EditarViewModel extends ViewModel {
         this.usuarioDao = usuarioDao;
         this.usuarioViewModel = usuarioViewModel;
     }
+    private static final String NOME_REGEX = "^.{3,}$";
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final String TELEFONE_REGEX = "^.{8,}$";
+    public boolean validarNome(String nome){ return nome.matches(NOME_REGEX); };
+
+    public boolean validarEmail(String email) {
+        return email.matches(EMAIL_REGEX);
+    }
+    public boolean validarTelefone(String telefone) {
+        return telefone.matches(TELEFONE_REGEX);
+    }
 
     public void atualizarBancodeDados(int id, EditText nome, EditText telefone, EditText email){
         Executors.newSingleThreadExecutor().execute(() -> {

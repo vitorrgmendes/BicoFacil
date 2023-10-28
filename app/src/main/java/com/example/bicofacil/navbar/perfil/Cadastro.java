@@ -79,7 +79,8 @@ public class Cadastro extends Fragment implements View.OnClickListener {
 
         if(v==btnCadastrar){
             if(mViewModel.verificarSenhasIguais(senha, confirmSenha)==true && mViewModel.
-                    validarSenha(senha)==true && mViewModel.validarEmail(email)==true){
+                    validarSenha(senha)==true && mViewModel.validarEmail(email)==true &&
+                    mViewModel.validarNome(nome) && mViewModel.validarTelefone(telefone)){
 
                 mViewModel.verificarEmailExistente(email);
 
@@ -106,17 +107,24 @@ public class Cadastro extends Fragment implements View.OnClickListener {
                     }
                 });
                 }
-            if(mViewModel.verificarSenhasIguais(senha, confirmSenha)==false){
+            if(!mViewModel.verificarSenhasIguais(senha, confirmSenha)){
                 Toast.makeText(getActivity(), "Senhas não conferem!",
                         Toast.LENGTH_SHORT).show();}
-            if(mViewModel.validarSenha(senha)==false){
+            if(!mViewModel.validarSenha(senha)){
                 Toast.makeText(getActivity(), "A senha deve conter no mínimo 6 caracteres!",
                         Toast.LENGTH_SHORT).show();}
-            }
-            if(mViewModel.validarEmail(email)==false){
+            if(!mViewModel.validarEmail(email)){
                 Toast.makeText(getActivity(), "E-mail inválido!",
                         Toast.LENGTH_SHORT).show();}
+            if(!mViewModel.validarNome(nome)){
+                Toast.makeText(getActivity(), "Nome deve conter no mínimo 3 caracteres!",
+                        Toast.LENGTH_SHORT).show();}
+            if(!mViewModel.validarTelefone(telefone)){
+                Toast.makeText(getActivity(), "Telefone inválido!",
+                        Toast.LENGTH_SHORT).show();}
             }
-        }
+            }
+}
+
 
 

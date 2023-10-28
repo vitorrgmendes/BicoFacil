@@ -97,7 +97,23 @@ public class Editar extends Fragment implements View.OnClickListener {
         }
 
         if(v==btnSalvar){
-            mViewModel.atualizarBancodeDados(id, edtNome, edtTelefone, edtEmail);
+            if(mViewModel.validarNome(edtNome.getText().toString()) && mViewModel.validarEmail
+                    (edtEmail.getText().toString()) && mViewModel.validarTelefone(edtTelefone.
+                    getText().toString())){
+            mViewModel.atualizarBancodeDados(id, edtNome, edtTelefone, edtEmail);}
+
+            if(!mViewModel.validarNome(edtNome.getText().toString())){
+                Toast.makeText(getActivity(), "Nome deve conter no mínimo 3 caracteres!",
+                        Toast.LENGTH_SHORT).show();
+            }
+            if(!mViewModel.validarEmail(edtEmail.getText().toString())){
+                Toast.makeText(getActivity(), "E-mail inválido!",
+                        Toast.LENGTH_SHORT).show();
+            }
+            if(!mViewModel.validarTelefone(edtTelefone.getText().toString())){
+                Toast.makeText(getActivity(), "Telefone inválido!",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
