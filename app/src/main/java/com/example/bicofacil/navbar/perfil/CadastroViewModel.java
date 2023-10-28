@@ -21,11 +21,14 @@ public class CadastroViewModel extends ViewModel {
     }
     private final MutableLiveData<Boolean> emailExistente = new MutableLiveData<>();
     private static final String SENHA_REGEX = "^.{6,}$";
+    private static final String NOME_REGEX = "^.{3,}$";
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final String TELEFONE_REGEX = "^.{8,}$";
 
     public boolean verificarSenhasIguais(String senha, String confirmSenha) {
         return senha.equals(confirmSenha);
     }
+    public boolean validarNome(String nome){ return nome.matches(NOME_REGEX); };
 
     public boolean validarSenha(String senha) {
         return senha.matches(SENHA_REGEX);
@@ -33,6 +36,9 @@ public class CadastroViewModel extends ViewModel {
 
     public boolean validarEmail(String email) {
         return email.matches(EMAIL_REGEX);
+    }
+    public boolean validarTelefone(String telefone) {
+        return telefone.matches(TELEFONE_REGEX);
     }
     
     public void verificarEmailExistente(String email) {

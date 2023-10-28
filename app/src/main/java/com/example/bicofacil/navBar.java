@@ -1,6 +1,7 @@
 package com.example.bicofacil;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -10,12 +11,15 @@ import android.widget.ImageButton;
 
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.navbar.perfil.UsuarioViewModel;
 
 public class navBar extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnHome;
     private ImageButton btnFavoritos;
     private ImageButton btnPerfil;
     public NavController navController;
+
+    private UsuarioViewModel usuarioViewModel;
     private AppDatabase db;
     private Usuario usuario;
     private UsuarioDao usuarioDao;
@@ -26,6 +30,8 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_nav_bar);
 
         db = Conexao.getInstance(this);
+
+        usuarioViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragmentContainerView);
@@ -49,7 +55,18 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
 
         if(v==btnFavoritos) navController.navigate(R.id.navigation_favoritos);
 
-        if(v==btnPerfil) navController.navigate(R.id.navigation_perfil);
+        if(v==btnPerfil){
+            Boolean isLogged = usuarioViewModel != null ? usuarioViewModel.getLogin().getValue() : null;
+            if (isLogged == null || !isLogged) {
+            navController.navigate(R.id.navigation_login);}
+            else{
+                navController.navigate(R.id.navigation_perfil);
+            }
+            }
+    }
+
+    public UsuarioViewModel getUsuarioViewModel() {
+        return usuarioViewModel;
     }
 }
 

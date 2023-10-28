@@ -1,6 +1,7 @@
 package com.example.bicofacil.navbar.perfil;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
+import com.example.bicofacil.navBar;
 
 public class Login extends Fragment implements View.OnClickListener{
     private TextView txtCadastrar;
@@ -29,6 +31,7 @@ public class Login extends Fragment implements View.OnClickListener{
     private String senha;
     private AppDatabase db;
     private UsuarioDao usuarioDao;
+    private UsuarioViewModel usuarioViewModel;
     private LoginViewModel mViewModel;
     public static Login newInstance() {return new Login();}
 
@@ -52,8 +55,29 @@ public class Login extends Fragment implements View.OnClickListener{
         super.onActivityCreated(savedInstanceState);
         db = Conexao.getInstance(getContext());
         usuarioDao = db.usuarioDao();
-        mViewModel = new ViewModelProvider(this, new UsuarioDaoViewModelFactory(usuarioDao))
-                .get(LoginViewModel.class);
+        usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
+        mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
+                usuarioViewModel)).get(LoginViewModel.class);
+
+        mViewModel.getCredenciaisCorretas().observe(getViewLifecycleOwner(), existe -> {
+
+            if (existe != null && existe) {
+
+                usuarioViewModel.getLogin().observe(getViewLifecycleOwner(), login -> {
+                if (login) {
+                        Toast.makeText(getActivity(), "Bem vindo(a) " + usuarioViewModel.
+                                        getNome().getValue() + "!", Toast.LENGTH_SHORT).show();
+                        Perfil perfilFragment = new Perfil();
+                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragmentContainerView, perfilFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }});
+            } else if (existe != null) {
+                Toast.makeText(getActivity(), "E-mail e/ou senha não conferem!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public void onClick(View v) {
@@ -61,21 +85,8 @@ public class Login extends Fragment implements View.OnClickListener{
         email = edtEmail.getText().toString();
         senha = edtSenha.getText().toString();
 
-        if(v==btnEntrar){
-            mViewModel.verificarCredenciais(email,senha);
-
-            if(mViewModel.getCredenciaisCorretas().getValue() != null && mViewModel.
-                    getCredenciaisCorretas().getValue()){
-                Perfil perfilFragment = new Perfil();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragmentContainerView, perfilFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }else{
-                Toast.makeText(getActivity(), "E-mail e/ou senha não conferem!",
-                        Toast.LENGTH_SHORT).show();
-            }
-
+        if (v == btnEntrar) {
+            mViewModel.verificarCredenciais(email, senha);
         }
 
         if(v==txtCadastrar){
@@ -86,4 +97,5 @@ public class Login extends Fragment implements View.OnClickListener{
             transaction.commit();
         }
     }
+
 }

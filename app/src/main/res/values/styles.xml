@@ -2,7 +2,7 @@
 <resources>
 
     <style name="CorTeladeFundo">
-        <item name="android:background">#E4E0FF</item>
+        <item name="android:background">@color/branco</item>
     </style>
 
     <style name="ContainerComponents">
@@ -30,12 +30,12 @@
         <item name="android:layout_marginRight">40dp</item>
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:padding">20dp</item>
-        <item name="android:backgroundTint">#251863</item>
+        <item name="android:backgroundTint">@color/azul</item>
         <item name="android:background">@drawable/arredondar_button</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">#7ED957</item>
+        <item name="android:textColor">@color/verde</item>
     </style>
 
     <style name="ButtonSair">
@@ -49,18 +49,24 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/azul</item>
     </style>
 
     <style name="ButtonMenu">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:backgroundTint">#251863</item>
+        <item name="android:backgroundTint">@color/azul</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:adjustViewBounds">true</item>
-        <item name="tint">#7ED957</item>
+        <item name="tint">@color/verde</item>
+    </style>
+
+    <style name="textViewEditar">
+        <item name="android:textColor">@color/azul</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

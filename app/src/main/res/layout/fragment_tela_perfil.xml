@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgorund_login"
+    tools:context=".navbar.perfil.Perfil">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/containerPerfil"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/container_foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    
+    <ImageView
+        android:id="@+id/fotoPerfil"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/ic_perfil"
+        app:layout_constraintEnd_toEndOf="@+id/containerPerfil"
+        app:layout_constraintStart_toStartOf="@+id/containerPerfil"
+        app:layout_constraintTop_toTopOf="@+id/containerPerfil"
+        />
+
+    <ImageView
+        android:id="@+id/nome"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_perfil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/containerPerfil"
+        />
+    
+    <TextView
+        android:id="@+id/txtNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="null"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintStart_toStartOf="@+id/nome"
+        app:layout_constraintTop_toBottomOf="@+id/containerPerfil"
+        />
+
+
+    <ImageView
+        android:id="@+id/email"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nome"
+        />
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="null"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintStart_toStartOf="@+id/nome"
+        app:layout_constraintTop_toBottomOf="@+id/txtNome"
+        />
+    <ImageView
+        android:id="@+id/telefone"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/baseline_call_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        />
+    <TextView
+        android:id="@+id/txtTelefone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="null"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="37dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintStart_toStartOf="@+id/nome"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+        />
+    <ImageView
+        android:id="@+id/publicacoes"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/baseline_article_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/telefone"
+        />
+    <TextView
+        android:id="@+id/id_publicacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minhas publicações"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="38dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintStart_toStartOf="@+id/telefone"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelefone"
+        />
+    <ImageView
+        android:id="@+id/avaliacoes"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/baseline_star_purple500_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/publicacoes"
+        />
+
+    <TextView
+        android:id="@+id/id_avaliacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="39dp"
+        android:text="Minhas avaliações"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/telefone"
+        app:layout_constraintTop_toBottomOf="@+id/id_publicacoes" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_editar"
+        style="@style/ButtonCadastrar"
+        android:text="@string/btnEditar"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avaliacoes" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_alterar_senha"
+        style="@style/ButtonCadastrar"
+        android:text="@string/btnAlterarSenha"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_editar" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_deslogar"
+        style="@style/ButtonSair"
+        android:text="@string/btnSair"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_alterar_senha"
+        />
+
+    <TextView
+        android:id="@+id/button_excluir_conta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/excluirConta"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/branco"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_deslogar"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
