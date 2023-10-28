@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgorund_login"
     tools:context=".navbar.perfil.Perfil">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/containerPerfil"
@@ -153,19 +159,43 @@
         android:id="@+id/button_editar"
         style="@style/ButtonCadastrar"
         android:text="@string/btnEditar"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/avaliacoes" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_alterar_senha"
+        style="@style/ButtonCadastrar"
+        android:text="@string/btnAlterarSenha"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_editar" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_deslogar"
         style="@style/ButtonSair"
         android:text="@string/btnSair"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_editar"
+        app:layout_constraintTop_toBottomOf="@+id/button_alterar_senha"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/button_excluir_conta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/excluirConta"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/branco"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_deslogar"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>

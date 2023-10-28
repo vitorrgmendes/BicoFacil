@@ -33,6 +33,7 @@ public class Perfil extends Fragment implements View.OnClickListener{
     private UsuarioViewModel usuarioViewModel;
     private Button btnSair;
     private Button btnEditar;
+    private Button btnAltSenha;
 
     public static Perfil newInstance() {
         return new Perfil();
@@ -48,9 +49,11 @@ public class Perfil extends Fragment implements View.OnClickListener{
         txtEmail = view.findViewById(R.id.txtEmail);
         btnSair = view.findViewById(R.id.button_deslogar);
         btnEditar = view.findViewById(R.id.button_editar);
+        btnAltSenha = view.findViewById(R.id.button_alterar_senha);
 
         btnSair.setOnClickListener(this);
         btnEditar.setOnClickListener(this);
+        btnAltSenha.setOnClickListener(this);
 
         return view;
     }
@@ -81,6 +84,14 @@ public class Perfil extends Fragment implements View.OnClickListener{
             Editar editarFragment = new Editar();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, editarFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+        if(v==btnAltSenha){
+            AlterarSenha alterarSenhaFragment = new AlterarSenha();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, alterarSenhaFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }

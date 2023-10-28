@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".navbar.perfil.Editar"
+    tools:context=".navbar.perfil.AlterarSenha"
     style="@style/CorTeladeFundo">
 
     <ImageView
@@ -22,7 +22,7 @@
         android:id="@+id/txtEditar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar"
+        android:text="Alterar senha"
         android:textSize="25sp"
         style="@style/textViewEditar"
         android:layout_marginLeft="45dp"
@@ -31,10 +31,10 @@
         />
 
     <TextView
-        android:id="@+id/txtNome"
+        android:id="@+id/txtSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome:"
+        android:text="Digite a sua senha:"
         style="@style/textViewEditar"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="45dp"
@@ -43,71 +43,51 @@
         />
 
     <EditText
-        android:id="@+id/edit_nome"
+        android:id="@+id/edit_senha"
         style="@style/EditTextLogin"
         android:layout_marginTop="35dp"
-        android:drawableRight="@drawable/ic_person"
-        android:hint="Nome"
+        android:drawableRight="@drawable/ic_password"
+        android:inputType="textPassword"
+        android:hint="Senha"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/txtEmail"
-        app:layout_constraintTop_toTopOf="@id/txtNome" />
+        app:layout_constraintStart_toStartOf="@id/txtNovaSenha"
+        app:layout_constraintTop_toTopOf="@id/txtSenha" />
 
     <TextView
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtNovaSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="E-mail:"
+        android:text="Digite a sua nova senha:"
         style="@style/textViewEditar"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="45dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_nome"
+        app:layout_constraintTop_toBottomOf="@id/edit_senha"
         />
 
     <EditText
-        android:id="@+id/edit_email"
+        android:id="@+id/edit_novaSenha"
         style="@style/EditTextLogin"
-        android:drawableRight="@drawable/ic_email"
-        android:hint="Email"
+        android:drawableRight="@drawable/ic_password"
+        android:hint="Nova senha"
         android:layout_marginTop="10dp"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtEmail" />
+        app:layout_constraintTop_toBottomOf="@id/txtNovaSenha" />
 
-    <TextView
-        android:id="@+id/txtTelefone"
-        style="@style/textViewEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="16dp"
-        android:text="Telefone:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_email" />
 
-    <EditText
-        android:id="@+id/edit_telefone"
-        style="@style/EditTextLogin"
-        android:drawableRight="@drawable/baseline_call_24"
-        android:hint="Telefone"
-        android:layout_marginTop="12dp"
-        android:inputType="phone"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtTelefone" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_salvar"
         style="@style/ButtonCadastrar"
         android:text="Salvar"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_telefone"
+        app:layout_constraintTop_toBottomOf="@id/edit_novaSenha"
         app:layout_constraintBottom_toTopOf="@id/button_sair"
         android:layout_marginBottom="0dp"
         />
@@ -116,7 +96,8 @@
         android:id="@+id/button_sair"
         style="@style/ButtonSair"
         android:text="@string/btnSair"
-        android:layout_marginTop="-25dp"
+        android:layout_marginTop="-70dp"
+        android:layout_marginBottom="-30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_salvar"
@@ -124,3 +105,4 @@
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
