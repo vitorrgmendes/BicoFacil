@@ -23,8 +23,8 @@ public interface UsuarioDao {
     @Update
     void editarUsuario(Usuario usuario);
 
-    @Delete
-    void deletarUsuario(Usuario usuario);
+    @Query("DELETE FROM Usuario WHERE id = :usuarioId")
+    void deletarUsuarioPorId(int usuarioId);
 
     @Query("SELECT COUNT(*) FROM Usuario WHERE email = :email")
     int emailExiste(String email);
