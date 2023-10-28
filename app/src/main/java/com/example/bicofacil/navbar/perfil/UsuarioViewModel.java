@@ -13,6 +13,7 @@ public class UsuarioViewModel extends ViewModel {
     private final MutableLiveData<String> email = new MutableLiveData<>();
     private final MutableLiveData<String> telefone = new MutableLiveData<>();
     private final MutableLiveData<Boolean> login = new MutableLiveData<>();
+    private final MutableLiveData<String> senha = new MutableLiveData<>();
     public MutableLiveData<String> getNome() {
         return nome;
     }
@@ -28,6 +29,12 @@ public class UsuarioViewModel extends ViewModel {
     }
     public MutableLiveData<Boolean> getLogin() {
         return login;
+    }
+    public MutableLiveData<String> getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha.postValue(senha);
     }
     public void setLogin(Boolean login) {
         this.login.postValue(login);

@@ -58,6 +58,26 @@ public class Login extends Fragment implements View.OnClickListener{
         usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
                 usuarioViewModel)).get(LoginViewModel.class);
+
+        mViewModel.getCredenciaisCorretas().observe(getViewLifecycleOwner(), existe -> {
+
+            if (existe != null && existe) {
+
+                usuarioViewModel.getLogin().observe(getViewLifecycleOwner(), login -> {
+                if (login) {
+                        Toast.makeText(getActivity(), "Bem vindo(a) " + usuarioViewModel.
+                                        getNome().getValue() + "!", Toast.LENGTH_SHORT).show();
+                        Perfil perfilFragment = new Perfil();
+                        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragmentContainerView, perfilFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }});
+            } else if (existe != null) {
+                Toast.makeText(getActivity(), "E-mail e/ou senha não conferem!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public void onClick(View v) {
@@ -67,29 +87,6 @@ public class Login extends Fragment implements View.OnClickListener{
 
         if (v == btnEntrar) {
             mViewModel.verificarCredenciais(email, senha);
-
-            mViewModel.getCredenciaisCorretas().observe(getViewLifecycleOwner(), event -> {
-                Boolean existe = event.getContentIfNotHandled();
-                if (existe!=null && existe){
-                    mViewModel.adicionarDados(email);
-                    mViewModel.setCredenciaisCorretas(true);
-
-                    usuarioViewModel.getLogin().observe(getViewLifecycleOwner(), login -> {
-                        if (login){
-                            Perfil perfilFragment = new Perfil();
-                            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                            transaction.replace(R.id.fragmentContainerView, perfilFragment);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-
-                        }
-                    });
-                }else if(existe!=null && !existe){
-                            Toast.makeText(getActivity(), "E-mail e/ou senha não conferem!",
-                                    Toast.LENGTH_SHORT).show();
-                }
-            });
-
         }
 
         if(v==txtCadastrar){

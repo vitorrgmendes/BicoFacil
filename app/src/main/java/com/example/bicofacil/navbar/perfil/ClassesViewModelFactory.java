@@ -29,6 +29,8 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
             return (T) new LoginViewModel(usuarioDao, usuarioViewModel);
         }else if (modelClass.isAssignableFrom(PerfilViewModel.class)) {
             return (T) new PerfilViewModel(usuarioDao, usuarioViewModel);
+        }else if (modelClass.isAssignableFrom(EditarViewModel.class)) {
+            return (T) new EditarViewModel(usuarioDao, usuarioViewModel);
         }
         throw new IllegalArgumentException("Classe de ViewModel desconhecida");
     }

@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="null"
-        android:textColor="@color/black"
+        android:textColor="@color/azul"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"
@@ -60,7 +60,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/ic_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nome"
@@ -71,10 +71,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="null"
-        android:textColor="@color/black"
+        android:textColor="@color/azul"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="60dp"
         app:layout_constraintStart_toStartOf="@+id/nome"
         app:layout_constraintTop_toBottomOf="@+id/txtNome"
@@ -84,7 +84,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="14dp"
         android:src="@drawable/baseline_call_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
@@ -94,14 +94,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="null"
-        android:textColor="@color/black"
+        android:textColor="@color/azul"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="37dp"
         android:layout_marginLeft="60dp"
         app:layout_constraintStart_toStartOf="@+id/nome"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail"
         />
+    <ImageView
+        android:id="@+id/publicacoes"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/baseline_article_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/telefone"
+        />
+    <TextView
+        android:id="@+id/id_publicacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minhas publicações"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="38dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintStart_toStartOf="@+id/telefone"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelefone"
+        />
+    <ImageView
+        android:id="@+id/avaliacoes"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/baseline_star_purple500_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/publicacoes"
+        />
+
+    <TextView
+        android:id="@+id/id_avaliacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="39dp"
+        android:text="Minhas avaliações"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/telefone"
+        app:layout_constraintTop_toBottomOf="@+id/id_publicacoes" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_editar"
+        style="@style/ButtonCadastrar"
+        android:text="@string/btnEditar"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/avaliacoes" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_deslogar"
@@ -110,7 +165,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telefone"
+        app:layout_constraintTop_toBottomOf="@+id/button_editar"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

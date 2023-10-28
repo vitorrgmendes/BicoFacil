@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
@@ -31,6 +32,7 @@ public class Perfil extends Fragment implements View.OnClickListener{
     private UsuarioDao usuarioDao;
     private UsuarioViewModel usuarioViewModel;
     private Button btnSair;
+    private Button btnEditar;
 
     public static Perfil newInstance() {
         return new Perfil();
@@ -45,8 +47,10 @@ public class Perfil extends Fragment implements View.OnClickListener{
         txtTelefone = view.findViewById(R.id.txtTelefone);
         txtEmail = view.findViewById(R.id.txtEmail);
         btnSair = view.findViewById(R.id.button_deslogar);
+        btnEditar = view.findViewById(R.id.button_editar);
 
         btnSair.setOnClickListener(this);
+        btnEditar.setOnClickListener(this);
 
         return view;
     }
@@ -69,6 +73,14 @@ public class Perfil extends Fragment implements View.OnClickListener{
             Login loginFragment = new Login();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, loginFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+        if(v==btnEditar){
+            Editar editarFragment = new Editar();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, editarFragment);
             transaction.addToBackStack(null);
             transaction.commit();
         }

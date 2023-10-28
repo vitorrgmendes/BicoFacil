@@ -1,12 +1,7 @@
 package com.example.bicofacil.navbar.perfil;
 
-import android.util.Log;
-
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.example.bicofacil.BD.usuario.Criptografia;
@@ -22,12 +17,9 @@ public class LoginViewModel extends ViewModel {
     private UsuarioViewModel usuarioViewModel;
     private Criptografia criptografia;
     private Login login;
-    private final MutableLiveData<Event<Boolean>> credenciaisCorretas = new MutableLiveData<>();
-    public LiveData<Event<Boolean>> getCredenciaisCorretas() {
+    private final MutableLiveData<Boolean> credenciaisCorretas = new MutableLiveData<>();
+    public LiveData<Boolean> getCredenciaisCorretas() {
         return credenciaisCorretas;
-    }
-    public void setCredenciaisCorretas(Boolean credenciaisCorretas) {
-        this.credenciaisCorretas.postValue(new Event<>(credenciaisCorretas));
     }
     public void verificarCredenciais(String email, String senha) {
         new Thread(() -> {
@@ -38,26 +30,21 @@ public class LoginViewModel extends ViewModel {
 
                     Usuario usuario = usuarioDao.buscaUsuarioPorEmail(email);
                     boolean senhaCorreta = criptografia.verificarSenha(senha,usuario.senhaHash);
-                    credenciaisCorretas.postValue(new Event<>(senhaCorreta));
+                    credenciaisCorretas.postValue(senhaCorreta);
 
+                    if(senhaCorreta){
+                        usuarioViewModel.setId(usuario.id);
+                        usuarioViewModel.setNome(usuario.nome);
+                        usuarioViewModel.setEmail(usuario.email);
+                        usuarioViewModel.setTelefone(usuario.telefone);
+                        usuarioViewModel.setSenha(usuario.senhaHash);
+                        usuarioViewModel.setLogin(true);
+                    }
                 }else{
-                    credenciaisCorretas.postValue(new Event<>(false));
+                    credenciaisCorretas.postValue(false);
                 }
             }
         }).start();}
-
-    public void adicionarDados(String email) {
-        new Thread(() -> {
-                    Usuario usuario = usuarioDao.buscaUsuarioPorEmail(email);
-                    usuarioViewModel.setLogin(true);
-                    usuarioViewModel.setId(usuario.id);
-                    usuarioViewModel.setNome(usuario.nome);
-                    usuarioViewModel.setEmail(usuario.email);
-                    usuarioViewModel.setTelefone(usuario.telefone);
-        }).start();}
-
-
-
 }
 
 

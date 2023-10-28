@@ -3,6 +3,7 @@
     <string name="btnEntrar">Entrar</string>
     <string name="btnSair">Sair</string>
     <string name="btnCadastrar">Cadastrar</string>
+    <string name="btnEditar">Editar</string>
     <string name="txtCadastro">Cadastre-se aqui!</string>
     <string name="txtTelaCadastrar">Cadastre-se!</string>
     <string name="title_activity_nav_bar">NavBar</string>
