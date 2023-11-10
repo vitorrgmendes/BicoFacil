@@ -9,10 +9,5 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_gravity="top|center_horizontal"
-        android:src="@drawable/logohome"
-        android:scaleX="1.7"
-        android:scaleY="1.7" />
+        style="@style/topTela" />
 </FrameLayout>
