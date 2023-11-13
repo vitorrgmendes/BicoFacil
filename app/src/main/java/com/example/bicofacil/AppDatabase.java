@@ -11,5 +11,5 @@ import com.example.bicofacil.BD.usuario.UsuarioDao;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract UsuarioDao usuarioDao();
-
+//
 }
