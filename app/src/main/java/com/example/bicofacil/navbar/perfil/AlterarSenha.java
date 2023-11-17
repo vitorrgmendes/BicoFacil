@@ -69,6 +69,7 @@ public class AlterarSenha extends Fragment implements View.OnClickListener {
 
         mViewModel.getFimOperacao().observe(getViewLifecycleOwner(), fim -> {
             if(fim && fim!=null){
+                mViewModel.atualizarCache(id,getContext());
                 Toast.makeText(getActivity(), "Senha atualizada com sucesso!",
                         Toast.LENGTH_SHORT).show();
                 Perfil perfilFragment = new Perfil();

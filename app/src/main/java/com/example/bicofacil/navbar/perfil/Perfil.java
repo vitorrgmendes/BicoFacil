@@ -92,6 +92,7 @@ public class Perfil extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == btnSair) {
+            mViewModel.limparCache(getContext());
             usuarioViewModel.setLogin(false);
             Login loginFragment = new Login();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();

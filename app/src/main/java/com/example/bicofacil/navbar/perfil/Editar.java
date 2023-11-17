@@ -69,8 +69,10 @@ public class Editar extends Fragment implements View.OnClickListener {
         edtTelefone.setText(usuarioViewModel.getTelefone().getValue());
         id=usuarioViewModel.getId().getValue();
 
+
         mViewModel.getFimAtualizacao().observe(getViewLifecycleOwner(), fim -> {
             if (fim != null && fim) {
+                mViewModel.atualizarCache(id,getContext());
                 Toast.makeText(getActivity(), "Dados atualizados com sucesso!",
                         Toast.LENGTH_SHORT).show();
                 Perfil perfilFragment = new Perfil();

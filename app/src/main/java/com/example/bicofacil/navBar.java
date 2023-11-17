@@ -3,6 +3,8 @@ package com.example.bicofacil;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import android.content.Context;
+import android.content.SharedPreferences;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
@@ -47,6 +49,7 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
         btnPerfil = findViewById(R.id.btnPerfil);
         btnPerfil.setOnClickListener(this);
 
+        carregarCache(getBaseContext());
     }
 
     @Override
@@ -68,5 +71,15 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
     public UsuarioViewModel getUsuarioViewModel() {
         return usuarioViewModel;
     }
-}
 
+
+    public void carregarCache(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+        usuarioViewModel.setId(sharedPreferences.getInt("id", 0));
+        usuarioViewModel.setNome(sharedPreferences.getString("nome", ""));
+        usuarioViewModel.setEmail(sharedPreferences.getString("email", ""));
+        usuarioViewModel.setTelefone(sharedPreferences.getString("telefone", ""));
+        usuarioViewModel.setSenha(sharedPreferences.getString("senha", ""));
+        usuarioViewModel.setLogin(sharedPreferences.getBoolean("login", false));
+    }
+}

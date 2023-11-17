@@ -86,7 +86,7 @@ public class Login extends Fragment implements View.OnClickListener{
         senha = edtSenha.getText().toString();
 
         if (v == btnEntrar) {
-            mViewModel.verificarCredenciais(email, senha);
+            mViewModel.verificarCredenciais(email, senha, getContext());
         }
 
         if(v==txtCadastrar){

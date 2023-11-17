@@ -1,5 +1,8 @@
 package com.example.bicofacil.navbar.perfil;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -49,6 +52,20 @@ public class AlterarSenhaViewModel extends ViewModel {
                 returnSenha.postValue(false);
             }
         });
-
     }
+
+    public void atualizarCache(int id, Context context){
+        new Thread(() -> {
+            Usuario usuarioAtualizado = usuarioDao.lerUsuarioPorId(id);
+
+            SharedPreferences sharedPreferences = context.getSharedPreferences("Usuario"
+                    , Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("senha", usuarioAtualizado.senhaHash);
+            editor.apply();
+
+            usuarioViewModel.setSenha(usuarioAtualizado.senhaHash);
+        }).start();}
+
+
 }
