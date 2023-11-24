@@ -17,6 +17,7 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnHome;
     private ImageButton btnFavoritos;
     private ImageButton btnPerfil;
+    private ImageButton btnCadastroVaga;
     public NavController navController;
 
     private UsuarioViewModel usuarioViewModel;
@@ -46,6 +47,9 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
 
         btnPerfil = findViewById(R.id.btnPerfil);
         btnPerfil.setOnClickListener(this);
+
+        btnCadastroVaga = findViewById(R.id.btnCadastroVaga);
+        btnCadastrarVaga.setOnClickListener(this);
 
     }
 
