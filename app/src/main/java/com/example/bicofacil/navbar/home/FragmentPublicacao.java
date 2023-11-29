@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
@@ -60,6 +61,7 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     private EditText edtHorario;
     private EditText edtTelefone;
     private Button btnPublicar;
+    private byte[] imagemPublicacao;
 
     public static FragmentPublicacao newInstance() {
         return new FragmentPublicacao();
@@ -105,6 +107,11 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
                 if(fim){
                     Toast.makeText(getActivity(), "Publicação inserida com sucesso!",
                             Toast.LENGTH_SHORT).show();
+                    Home HomeFragment = new Home();
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragmentContainerView, HomeFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
             }
         });
@@ -125,21 +132,43 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
         }
 
         if(v == btnPublicar){
-            int selectedRadioButtonId = tipoDeOferta.getCheckedRadioButtonId();
-            if (selectedRadioButtonId == R.id.opcaoVaga) {
+
+            int idRadioButton = tipoDeOferta.getCheckedRadioButtonId();
+
+            if (idRadioButton == R.id.opcaoVaga) {
                 tipoOferta=1;
-            } else if (selectedRadioButtonId == R.id.opcaoServico) {
+            } else if (idRadioButton == R.id.opcaoServico) {
                 tipoOferta=2;
             } else {
                 Toast.makeText(getActivity(), "É necessário definir o tipo de oferta!",
                         Toast.LENGTH_SHORT).show();
             }
-            byte[] imagemPublicacao = mViewModel.converterImagemParaBytes(imageBitmap);
+            if(imageBitmap!=null){
+            imagemPublicacao = mViewModel.converterImagemParaBytes(imageBitmap);}
 
-            if(tipoOferta==1 || tipoOferta==2){
+            if((tipoOferta==1 || tipoOferta==2) && mViewModel.validarTitulo(edtTitulo.getText()
+                    .toString()) && mViewModel.validarTelefone(edtTelefone.getText().toString()) &&
+                    mViewModel.validarDescricao(edtDescricao.getText().toString())){
+
             mViewModel.criarNovaPublicacao(tipoOferta,imagemPublicacao,edtTitulo.getText().toString(),
                     edtDescricao.getText().toString(),edtValor.getText().toString(),
-                    edtHorario.getText().toString(), edtTelefone.getText().toString());}
+                    edtHorario.getText().toString(), edtTelefone.getText().toString());
+            }
+
+            if(!mViewModel.validarTitulo(edtTitulo.getText().toString())){
+                Toast.makeText(getActivity(), "O título deve ter no mínimo 3 caracteres!",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            if(!mViewModel.validarTelefone(edtTelefone.getText().toString())){
+                Toast.makeText(getActivity(), "O telefone deve ter no mínimo 8 dígitos!",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            if(!mViewModel.validarDescricao(edtDescricao.getText().toString())){
+                Toast.makeText(getActivity(), "A descrição deve ter no mínimo 15 caracteres!",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
