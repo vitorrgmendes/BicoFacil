@@ -30,6 +30,14 @@ public class FragmentPublicacaoViewModel extends ViewModel {
     public LiveData<Boolean> getFim() {
         return fim;
     }
+    private static final String TITUTLO_REGEX = "^.{3,}$";
+    private static final String DESCRICAO_REGEX = "^.{15,}$";
+    private static final String TELEFONE_REGEX = "^.{8,}$";
+    public boolean validarDescricao(String descricao){ return descricao.matches(DESCRICAO_REGEX); };
+    public boolean validarTitulo(String titulo){ return titulo.matches(TITUTLO_REGEX); };
+    public boolean validarTelefone(String telefone) {
+        return telefone.matches(TELEFONE_REGEX);
+    }
 
     public byte[] converterImagemParaBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
