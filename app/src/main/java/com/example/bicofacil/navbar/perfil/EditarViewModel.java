@@ -3,7 +3,6 @@ package com.example.bicofacil.navbar.perfil;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.EditText;
 
 import androidx.lifecycle.LiveData;
@@ -13,8 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
-
-import java.util.concurrent.Executors;
+import com.example.bicofacil.UsuarioViewModel;
 
 
 public class EditarViewModel extends ViewModel {

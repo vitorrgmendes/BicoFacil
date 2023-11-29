@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
-import com.example.bicofacil.navbar.perfil.UsuarioViewModel;
 
 public class navBar extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnHome;

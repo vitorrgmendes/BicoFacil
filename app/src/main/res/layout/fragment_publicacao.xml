@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/txtTipoDeOfertas"
-            android:text="Tipo de ofertas:"
+            android:text="Tipo de oferta:"
             style="@style/textViewAddPublicacao"
             app:layout_constraintStart_toStartOf="@id/imageView"/>
         <RadioGroup
@@ -54,7 +54,7 @@
             style="@style/textViewAddPublicacao" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButtonImagem"
             android:layout_width="match_parent"
             android:layout_marginRight="25dp"
             android:layout_marginTop="10dp"

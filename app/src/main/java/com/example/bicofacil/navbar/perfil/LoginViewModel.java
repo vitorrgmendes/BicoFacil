@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import com.example.bicofacil.BD.usuario.Criptografia;
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.UsuarioViewModel;
 
 public class LoginViewModel extends ViewModel {
     public LoginViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel) {
@@ -28,7 +29,7 @@ public class LoginViewModel extends ViewModel {
             if(usuarioDao != null) {
                 boolean existe = usuarioDao.emailExiste(email) > 0;
 
-                if(existe==true){
+                if(existe){
 
                     Usuario usuario = usuarioDao.buscaUsuarioPorEmail(email);
                     boolean senhaCorreta = criptografia.verificarSenha(senha,usuario.senhaHash);

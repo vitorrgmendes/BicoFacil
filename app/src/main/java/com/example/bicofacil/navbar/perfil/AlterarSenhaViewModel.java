@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.UsuarioViewModel;
 
 import java.util.concurrent.Executors;
 

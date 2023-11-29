@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.ClassesViewModelFactory;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
+import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 
 public class Perfil extends Fragment implements View.OnClickListener {
@@ -126,7 +128,8 @@ public class Perfil extends Fragment implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     mViewModel.excluirConta(id);
                     mViewModel.limparCache(getContext());
-                    Log.d("PerfilFragment", "Confirmação recebida:"+mViewModel.getConfirmacao().getValue());
+                    Log.d("PerfilFragment", "Confirmação recebida:"+mViewModel.getConfirmacao()
+                            .getValue());
                 }
             });
 

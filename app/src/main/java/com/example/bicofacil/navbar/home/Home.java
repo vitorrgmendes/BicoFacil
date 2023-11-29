@@ -12,11 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.bicofacil.R;
+import com.example.bicofacil.navBar;
+import com.example.bicofacil.navbar.perfil.Login;
+import com.example.bicofacil.UsuarioViewModel;
 
 public class Home extends Fragment implements View.OnClickListener {
     Button addPublicacao;
+    UsuarioViewModel usuarioViewModel;
 
     public static Home newInstance() {
         return new Home();
@@ -35,14 +40,30 @@ public class Home extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
+    }
+
+    @Override
     public void onClick(View v) {
 
         if(v == addPublicacao){
-            FragmentPublicacao publicacaoFragment = new FragmentPublicacao();
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, publicacaoFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            if (usuarioViewModel.getLogin().getValue() == true) {
+                FragmentPublicacao publicacaoFragment = new FragmentPublicacao();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, publicacaoFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }else{
+                Toast.makeText(getActivity(), "É necessário fazer o login!", Toast.LENGTH_SHORT)
+                        .show();
+                Login loginFragment = new Login();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, loginFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
         }
 
     }

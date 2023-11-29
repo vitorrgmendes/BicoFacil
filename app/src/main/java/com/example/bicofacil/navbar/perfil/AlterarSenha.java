@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.ClassesViewModelFactory;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
+import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 
 public class AlterarSenha extends Fragment implements View.OnClickListener {
