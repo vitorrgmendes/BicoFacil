@@ -13,12 +13,14 @@ public class Publicacao {
     @PrimaryKey(autoGenerate = true)
     public int id;
     public int tipoOferta;
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    public byte[] imagemPublicacao;
     public String titulo;
     public String descricao;
     public String valor;
+    public String horario;
     public String contato;
+    public boolean favorito;
     @ColumnInfo(name = "usuarioId")
     public int usuarioId;
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-        public byte[] imagemPublicacao;
 }

@@ -1,7 +1,6 @@
 package com.example.bicofacil.navbar.perfil;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.ClassesViewModelFactory;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
+import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 
 public class Login extends Fragment implements View.OnClickListener{
@@ -86,7 +87,7 @@ public class Login extends Fragment implements View.OnClickListener{
         senha = edtSenha.getText().toString();
 
         if (v == btnEntrar) {
-            mViewModel.verificarCredenciais(email, senha);
+            mViewModel.verificarCredenciais(email, senha, getContext());
         }
 
         if(v==txtCadastrar){

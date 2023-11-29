@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.ClassesViewModelFactory;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
+import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 
 public class Editar extends Fragment implements View.OnClickListener {
@@ -69,8 +71,10 @@ public class Editar extends Fragment implements View.OnClickListener {
         edtTelefone.setText(usuarioViewModel.getTelefone().getValue());
         id=usuarioViewModel.getId().getValue();
 
+
         mViewModel.getFimAtualizacao().observe(getViewLifecycleOwner(), fim -> {
             if (fim != null && fim) {
+                mViewModel.atualizarCache(id,getContext());
                 Toast.makeText(getActivity(), "Dados atualizados com sucesso!",
                         Toast.LENGTH_SHORT).show();
                 Perfil perfilFragment = new Perfil();

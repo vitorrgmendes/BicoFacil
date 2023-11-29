@@ -1,4 +1,4 @@
-package com.example.bicofacil.navbar.perfil;
+package com.example.bicofacil;
 
 import android.util.Log;
 import android.widget.TextView;

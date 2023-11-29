@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.ClassesViewModelFactory;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 

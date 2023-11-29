@@ -1,13 +1,15 @@
 package com.example.bicofacil.navbar.perfil;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.UsuarioViewModel;
 
 public class PerfilViewModel extends ViewModel {
 
@@ -34,5 +36,12 @@ public class PerfilViewModel extends ViewModel {
             usuarioDao.deletarUsuarioPorId(id);
             confirmacao.postValue(true);
         }).start();
+    }
+
+    public void limparCache(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Usuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 }

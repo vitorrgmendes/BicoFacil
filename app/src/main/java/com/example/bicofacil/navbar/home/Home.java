@@ -1,6 +1,6 @@
 package com.example.bicofacil.navbar.home;
 
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
@@ -11,12 +11,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.bicofacil.R;
+import com.example.bicofacil.navBar;
+import com.example.bicofacil.navbar.perfil.Login;
+import com.example.bicofacil.UsuarioViewModel;
 
-public class Home extends Fragment {
-
-    private HomeViewModel mViewModel;
+public class Home extends Fragment implements View.OnClickListener {
+    Button addPublicacao;
+    UsuarioViewModel usuarioViewModel;
 
     public static Home newInstance() {
         return new Home();
@@ -25,14 +30,41 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        addPublicacao = view.findViewById(R.id.buttonAddPublicacao);
+
+        addPublicacao.setOnClickListener(this);
+
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        // TODO: Use the ViewModel
+        usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
     }
 
+    @Override
+    public void onClick(View v) {
+
+        if(v == addPublicacao){
+            if (usuarioViewModel.getLogin().getValue() == true) {
+                FragmentPublicacao publicacaoFragment = new FragmentPublicacao();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, publicacaoFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }else{
+                Toast.makeText(getActivity(), "É necessário fazer o login!", Toast.LENGTH_SHORT)
+                        .show();
+                Login loginFragment = new Login();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, loginFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        }
+
+    }
 }

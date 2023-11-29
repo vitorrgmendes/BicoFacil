@@ -1,6 +1,8 @@
 package com.example.bicofacil.navbar.perfil;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.EditText;
 
 import androidx.lifecycle.LiveData;
@@ -10,8 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
-
-import java.util.concurrent.Executors;
+import com.example.bicofacil.UsuarioViewModel;
 
 
 public class EditarViewModel extends ViewModel {
@@ -39,7 +40,7 @@ public class EditarViewModel extends ViewModel {
     }
 
     public void atualizarBancodeDados(int id, EditText nome, EditText telefone, EditText email){
-        Executors.newSingleThreadExecutor().execute(() -> {
+        new Thread(() -> {
 
         Usuario usuarioAtualizado = usuarioDao.lerUsuarioPorId(id);
 
@@ -55,23 +56,30 @@ public class EditarViewModel extends ViewModel {
             boolean existe = usuarioDao.emailExiste(email.getText().toString()) > 0;
 
             if(!existe || usuarioAtualizado2.email.toString().equals(email.getText().toString())){
-            usuarioDao.editarUsuario(usuarioAtualizado);
-
-
-            if(usuarioAtualizado.email.toString().equals(usuarioAtualizado2.email.toString()) && usuarioAtualizado.nome.
-                    equals(usuarioAtualizado2.nome.toString()) && usuarioAtualizado.telefone.equals
-                    (usuarioAtualizado2.telefone.toString())){
-
-                usuarioViewModel.setNome(nome.getText().toString());
-                usuarioViewModel.setTelefone(telefone.getText().toString());
-                usuarioViewModel.setEmail(email.getText().toString());
-
+                usuarioDao.editarUsuario(usuarioAtualizado);
                 fimAtualizacao.postValue(true);}
         }else{
                 fimAtualizacao.postValue(false);
-            }
         }
+        }).start();}
 
-        });}
+    public void atualizarCache(int id, Context context){
+        new Thread(() -> {
+            Usuario usuarioAtualizado = usuarioDao.lerUsuarioPorId(id);
+
+                        SharedPreferences sharedPreferences = context.getSharedPreferences("Usuario"
+                                , Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("nome", usuarioAtualizado.nome);
+                        editor.putString("email", usuarioAtualizado.email);
+                        editor.putString("telefone", usuarioAtualizado.telefone);
+                        editor.apply();
+
+                        usuarioViewModel.setNome(usuarioAtualizado.nome);
+                        usuarioViewModel.setTelefone(usuarioAtualizado.telefone);
+                        usuarioViewModel.setEmail(usuarioAtualizado.email);
+
+        }).start();}
+
 
 }
