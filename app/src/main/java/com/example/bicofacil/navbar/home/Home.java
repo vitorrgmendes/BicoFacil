@@ -23,6 +23,7 @@ import com.example.bicofacil.UsuarioViewModel;
 public class Home extends Fragment implements View.OnClickListener {
     Button addPublicacao;
     ImageButton btnVagas;
+    ImageButton btnServicos;
     UsuarioViewModel usuarioViewModel;
 
     public static Home newInstance() {
@@ -36,9 +37,11 @@ public class Home extends Fragment implements View.OnClickListener {
 
         addPublicacao = view.findViewById(R.id.buttonAddPublicacao);
         btnVagas = view.findViewById(R.id.btnVagas);
+        btnServicos = view.findViewById(R.id.btnServicos);
 
         addPublicacao.setOnClickListener(this);
         btnVagas.setOnClickListener(this);
+        btnServicos.setOnClickListener(this);
 
         return view;
     }
@@ -71,7 +74,23 @@ public class Home extends Fragment implements View.OnClickListener {
         }
 
         if(v == btnVagas){
+            Bundle bundle = new Bundle();
+            bundle.putString("chave", "vagas");
+
             OfertasVagaFragment ofertasVagaFragment = new OfertasVagaFragment();
+            ofertasVagaFragment.setArguments(bundle);
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+        if(v == btnServicos){
+            Bundle bundle = new Bundle();
+            bundle.putString("chave", "servicos");
+
+            OfertasVagaFragment ofertasVagaFragment = new OfertasVagaFragment();
+            ofertasVagaFragment.setArguments(bundle);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
             transaction.addToBackStack(null);

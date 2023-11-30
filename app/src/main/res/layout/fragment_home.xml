@@ -34,19 +34,19 @@
             android:layout_marginLeft="25dp"
             android:background="@drawable/arredondar_button"
             android:contentDescription="Selecione uma imagem"
+            android:layout_weight="1"
             android:layout_marginBottom="35dp"/>
 
         <ImageButton
             android:id="@+id/btnServicos"
             android:layout_width="360dp"
-            android:layout_marginRight="25dp"
             android:layout_height="180dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/imagefreelancers"
             android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:background="@drawable/arredondar_button"
             android:contentDescription="Selecione uma imagem"
-            />
+            android:scaleType="fitCenter"
+            android:src="@drawable/imagefreelancers" />
 
     </LinearLayout>
 </FrameLayout>

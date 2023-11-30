@@ -28,21 +28,26 @@ public class OfertasVagasViewModel extends ViewModel {
         this.listaVagas = new MutableLiveData<>();
     }
     public LiveData<List<Publicacao>> getListaVagas() {
-        if (listaVagas.getValue() == null) {
-            carregarListaVagas();
-        }
         return listaVagas;
     }
 
-    private final MutableLiveData<Boolean> fimQueryVagas = new MutableLiveData<>();
-    public LiveData<Boolean> getfimQueryVagas() {
-        return fimQueryVagas;
-    }
-
-    public void carregarListaVagas() {
+    public void carregarLista(String chaveLista, int id) {
         new Thread(() -> {
-            List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesVagas();
-            listaVagas.postValue(publicacoes);
+            if (chaveLista == "vagas") {
+                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesVagas();
+                listaVagas.postValue(publicacoes);
+            }
+
+            if (chaveLista == "servicos") {
+                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesServicos();
+                listaVagas.postValue(publicacoes);
+            }
+
+            if (chaveLista == "publicacoesPorId") {
+                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesPorUsuarioId(id);
+                listaVagas.postValue(publicacoes);
+            }
+
         }).start();
     }
 
