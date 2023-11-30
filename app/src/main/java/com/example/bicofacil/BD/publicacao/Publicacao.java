@@ -23,4 +23,8 @@ public class Publicacao {
     public boolean favorito;
     @ColumnInfo(name = "usuarioId")
     public int usuarioId;
+
 }
+
+
+

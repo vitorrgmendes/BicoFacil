@@ -25,7 +25,7 @@
             android:layout_marginBottom="30dp"/>
 
         <ImageButton
-            android:id="@+id/btnFrelancers"
+            android:id="@+id/btnVagas"
             android:layout_width="360dp"
             android:layout_marginRight="25dp"
             android:layout_height="180dp"

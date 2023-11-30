@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".navbar.home.FragmentAvaliacao"
+    style="@style/CorTeladeFundo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/topTela" />
+
+        <TextView
+            android:id="@+id/txtAvaliacao"
+            android:text="Avaliação"
+            style="@style/textViewAddPublicacao"
+            app:layout_constraintStart_toStartOf="@id/imageView"/>
+
+        <TextView
+            android:id="@+id/txtNota"
+            android:text="Nota:"
+            android:textSize="20sp"
+            style="@style/textViewAddPublicacao"
+            app:layout_constraintStart_toStartOf="@id/imageView"
+            android:layout_marginTop="15dp"/>
+
+        <RatingBar
+            android:id="@+id/nota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="0"
+            android:layout_marginLeft="25dp"
+            style="?android:attr/ratingBarStyleSmall"/>
+
+        <TextView
+            android:id="@+id/txtComentario"
+            android:text="Descrição:"
+            android:textSize="20sp"
+            style="@style/textViewAddPublicacao"
+            app:layout_constraintStart_toStartOf="@id/imageView"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/editComentario"
+            style="@style/EditTextAddPublicacao"
+            android:hint="Comentário:"
+            android:inputType="textMultiLine" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_Avaliar"
+            style="@style/ButtonCadastrar"
+            android:text="Avaliar"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+</ScrollView>
