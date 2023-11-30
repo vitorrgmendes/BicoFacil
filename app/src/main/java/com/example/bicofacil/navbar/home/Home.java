@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.bicofacil.R;
@@ -21,6 +22,7 @@ import com.example.bicofacil.UsuarioViewModel;
 
 public class Home extends Fragment implements View.OnClickListener {
     Button addPublicacao;
+    ImageButton btnVagas;
     UsuarioViewModel usuarioViewModel;
 
     public static Home newInstance() {
@@ -33,8 +35,10 @@ public class Home extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         addPublicacao = view.findViewById(R.id.buttonAddPublicacao);
+        btnVagas = view.findViewById(R.id.btnVagas);
 
         addPublicacao.setOnClickListener(this);
+        btnVagas.setOnClickListener(this);
 
         return view;
     }
@@ -64,6 +68,14 @@ public class Home extends Fragment implements View.OnClickListener {
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
+        }
+
+        if(v == btnVagas){
+            OfertasVagaFragment ofertasVagaFragment = new OfertasVagaFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
     }

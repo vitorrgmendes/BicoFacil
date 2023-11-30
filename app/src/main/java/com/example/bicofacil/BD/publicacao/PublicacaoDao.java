@@ -23,11 +23,11 @@ public interface PublicacaoDao {
     void deletarPublicacao(Publicacao publicacao);
 
     @Query("SELECT * FROM publicacao")
-    LiveData<List<Publicacao>> obterTodasPublicacoes();
+    List<Publicacao> obterTodasPublicacoes();
 
     @Query("SELECT * FROM publicacao WHERE tipoOferta = 1")
-    LiveData<List<Publicacao>> obterPublicacoesVagas();
+    List<Publicacao> obterPublicacoesVagas();
 
     @Query("SELECT * FROM publicacao WHERE tipoOferta = 2")
-    LiveData<List<Publicacao>> obterPublicacoesServicos();
+    List<Publicacao> obterPublicacoesServicos();
 }

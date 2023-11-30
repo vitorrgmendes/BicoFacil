@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.bicofacil.BD.publicacao.PublicacaoDao;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.navbar.home.FragmentPublicacaoViewModel;
+import com.example.bicofacil.navbar.home.OfertasVagasViewModel;
 import com.example.bicofacil.navbar.perfil.AlterarSenhaViewModel;
 import com.example.bicofacil.navbar.perfil.CadastroViewModel;
 import com.example.bicofacil.navbar.perfil.EditarViewModel;
@@ -52,6 +53,8 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
             return (T) new AlterarSenhaViewModel(usuarioDao, usuarioViewModel);
         }else if (modelClass.isAssignableFrom(FragmentPublicacaoViewModel.class)) {
             return (T) new FragmentPublicacaoViewModel(usuarioDao, usuarioViewModel, publicacaoDao);
+        }else if (modelClass.isAssignableFrom(OfertasVagasViewModel.class)) {
+            return (T) new OfertasVagasViewModel(usuarioDao, usuarioViewModel, publicacaoDao);
         }
         throw new IllegalArgumentException("Classe de ViewModel desconhecida");
     }
