@@ -5,31 +5,26 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
+
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.publicacao.Publicacao;
 import com.example.bicofacil.BD.publicacao.PublicacaoDao;
-import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.ClassesViewModelFactory;
 import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
-import com.example.bicofacil.navbar.home.placeholder.PlaceholderContent;
 
 import java.util.List;
 
@@ -41,8 +36,10 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
     private UsuarioViewModel usuarioViewModel;
     private PublicacaoDao publicacaoDao;
     private List<Publicacao> listaVagas;
+    private TextView txtTitulo;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
+    private String chaveLista;
 
 
     public OfertasVagaFragment() {
@@ -62,9 +59,12 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            chaveLista = getArguments().getString("chave");
         }
+
 
 
     }
@@ -80,7 +80,7 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
                 usuarioViewModel, publicacaoDao)).get(OfertasVagasViewModel.class);
 
-        mViewModel.carregarListaVagas();
+        mViewModel.carregarLista(chaveLista, usuarioViewModel.getId().getValue());
 
         mViewModel.getListaVagas().observe(getViewLifecycleOwner(), vagas -> {
             if (vagas != null) {
@@ -97,6 +97,15 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_oferta_list, container, false);
 
+        txtTitulo = view.findViewById(R.id.txtTitulo);
+
+        if (chaveLista == "servicos") {
+            txtTitulo.setText("Ofertas de serviços");
+        }
+
+        if (chaveLista == "publicacoesPorId") {
+            txtTitulo.setText("Minhas ofertas publicadas");
+        }
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -107,6 +116,7 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
         }
+
         return view;
     }
 

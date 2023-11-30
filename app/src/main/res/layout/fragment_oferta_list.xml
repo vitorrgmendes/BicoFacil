@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.example.bicofacil.navbar.home.OfertasVagaFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/CorTeladeFundo"
-    app:layoutManager="LinearLayoutManager"
-    tools:context=".navbar.home.OfertasVagaFragment"
-    tools:listitem="@layout/fragment_ofertas" />
+    android:orientation="vertical"
+    style="@style/CorTeladeFundo">
+
+    <ImageView
+        android:id="@+id/imageView"
+        style="@style/topTela" />
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:text="Ofertas de vagas"
+        style="@style/textViewAddPublicacao"
+        app:layout_constraintStart_toStartOf="@id/imageView"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".navbar.home.OfertasVagaFragment"
+        tools:listitem="@layout/fragment_ofertas" />
+
+</LinearLayout>

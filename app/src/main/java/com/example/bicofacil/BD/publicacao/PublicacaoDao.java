@@ -30,4 +30,7 @@ public interface PublicacaoDao {
 
     @Query("SELECT * FROM publicacao WHERE tipoOferta = 2")
     List<Publicacao> obterPublicacoesServicos();
+
+    @Query("SELECT * FROM publicacao WHERE usuarioId = :usuarioId")
+    List<Publicacao> obterPublicacoesPorUsuarioId(int usuarioId);
 }
