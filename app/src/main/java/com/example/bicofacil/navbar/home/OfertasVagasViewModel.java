@@ -55,7 +55,7 @@ public class OfertasVagasViewModel extends ViewModel {
         }).start();
     }
 
-    public void atualizarFavorito(int idPublicacao, boolean favorito,FavoritoAtualizadoCallback callback){
+    public void atualizarFavorito(int idPublicacao, boolean favorito, FavoritoAtualizadoCallback callback){
         new Thread(() -> {
             publicacaoDao.atualizarFavorito(idPublicacao,favorito);
             callback.onFavoritoAtualizado();
@@ -66,6 +66,7 @@ public class OfertasVagasViewModel extends ViewModel {
 
     public void salvarPublicacoesFavoritas(int usuarioId) {
         new Thread(() -> {
+            if(usuarioId!=0){
             List<Publicacao> publicacoesFavoritas = publicacaoDao.obterTodasPublicacoes();
 
             for (Publicacao publicacao : publicacoesFavoritas) {
@@ -79,7 +80,7 @@ public class OfertasVagasViewModel extends ViewModel {
                     if(!publicacao.favorito && existente!=null){
                         favoritosDao.deletarFavorito(existente);
                     }
-
+            }
             }
         }).start();
     }
@@ -110,6 +111,22 @@ public class OfertasVagasViewModel extends ViewModel {
 
             if (chaveLista == "publicacoesPorId") {
                 List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesPorUsuarioId(usuarioId);
+                listaVagas.postValue(publicacoes);
+            }
+
+            if (chaveLista == "favoritos") {
+                List<Favoritos> listafavoritos = favoritosDao.obterFavoritosPorUsuarioId(usuarioId);
+
+                List<Integer> idsPublicacoesFavoritas2 = new ArrayList<>();
+                for (Favoritos favorito : listafavoritos) {
+                    idsPublicacoesFavoritas2.add(favorito.publicacaoId);
+                }
+
+                publicacaoDao.atualizarTodosFavoritosParaFalse();
+
+                publicacaoDao.atualizarFavoritosParaTrue(idsPublicacoesFavoritas2);
+
+                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesFavoritas();
                 listaVagas.postValue(publicacoes);
             }
         }).start();

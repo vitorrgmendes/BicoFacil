@@ -1,7 +1,6 @@
 package com.example.bicofacil.navbar.home;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -106,6 +105,10 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
 
         if (chaveLista == "publicacoesPorId") {
             txtTitulo.setText("Minhas ofertas publicadas");
+        }
+
+        if (chaveLista == "favoritos") {
+            txtTitulo.setText("Minhas ofertas favoritas");
         }
 
         if (view instanceof RecyclerView) {

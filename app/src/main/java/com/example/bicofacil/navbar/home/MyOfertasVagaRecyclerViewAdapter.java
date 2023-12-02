@@ -1,6 +1,7 @@
 package com.example.bicofacil.navbar.home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +29,6 @@ public class MyOfertasVagaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfe
     private final List<Publicacao> listaPublicacoes;
     private OnItemClickListener listener;
     private final OfertasVagasViewModel viewModel;
-
 
     public MyOfertasVagaRecyclerViewAdapter(List<Publicacao> listaP, OfertasVagasViewModel viewModel) {
         listaPublicacoes = listaP;
@@ -77,7 +78,9 @@ public class MyOfertasVagaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfe
             }
             Publicacao publicacao = listaPublicacoes.get(currentPosition);
             publicacao.favorito = !publicacao.favorito;
-            viewModel.atualizarFavorito(publicacao.id, publicacao.favorito, new FavoritoAtualizadoCallback() {
+
+            viewModel.atualizarFavorito(publicacao.id, publicacao.favorito,
+                    new FavoritoAtualizadoCallback() {
                 @Override
                 public void onFavoritoAtualizado() {
                     listaPublicacoes.set(currentPosition, publicacao);

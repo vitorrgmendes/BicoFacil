@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
@@ -55,11 +56,24 @@ public class navBar extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if(v==btnHome) navController.navigate(R.id.navigation_home);
 
-        if(v==btnFavoritos) navController.navigate(R.id.navigation_favoritos);
+        if(v==btnFavoritos){
+            Bundle bundle = new Bundle();
+            bundle.putString("chave", "favoritos");
+
+            Boolean login = usuarioViewModel != null ? usuarioViewModel.getLogin().getValue() : null;
+            if (login == null || !login) {
+                navController.navigate(R.id.navigation_login);
+                Toast.makeText(navBar.this, "É necessário fazer o login para acessar " +
+                                "suas publicações favoritas!", Toast.LENGTH_SHORT)
+                        .show();}
+            else{
+                navController.navigate(R.id.navigation_favoritos,bundle);
+            }
+            }
 
         if(v==btnPerfil){
-            Boolean isLogged = usuarioViewModel != null ? usuarioViewModel.getLogin().getValue() : null;
-            if (isLogged == null || !isLogged) {
+            Boolean login = usuarioViewModel != null ? usuarioViewModel.getLogin().getValue() : null;
+            if (login == null || !login) {
             navController.navigate(R.id.navigation_login);}
             else{
                 navController.navigate(R.id.navigation_perfil);
