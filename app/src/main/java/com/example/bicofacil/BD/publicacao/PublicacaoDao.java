@@ -45,4 +45,7 @@ public interface PublicacaoDao {
 
     @Query("SELECT * FROM publicacao WHERE favorito = 1")
     List<Publicacao> obterPublicacoesFavoritas();
+
+    @Query("SELECT * FROM publicacao WHERE id = :publicacaoId")
+    Publicacao obterPublicacoesPorId(int publicacaoId);
 }

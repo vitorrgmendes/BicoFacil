@@ -77,7 +77,7 @@ public class Home extends Fragment implements View.OnClickListener {
             Bundle bundle = new Bundle();
             bundle.putString("chave", "vagas");
 
-            OfertasVagaFragment ofertasVagaFragment = new OfertasVagaFragment();
+            OfertasFragment ofertasVagaFragment = new OfertasFragment();
             ofertasVagaFragment.setArguments(bundle);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
@@ -89,7 +89,7 @@ public class Home extends Fragment implements View.OnClickListener {
             Bundle bundle = new Bundle();
             bundle.putString("chave", "servicos");
 
-            OfertasVagaFragment ofertasVagaFragment = new OfertasVagaFragment();
+            OfertasFragment ofertasVagaFragment = new OfertasFragment();
             ofertasVagaFragment.setArguments(bundle);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);

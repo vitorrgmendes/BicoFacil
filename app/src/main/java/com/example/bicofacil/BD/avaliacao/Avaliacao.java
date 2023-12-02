@@ -17,4 +17,5 @@ public class Avaliacao {
     public int publicacaoId;
     public int nota;
     public String comentario;
+    public String nomeUsuario;
 }

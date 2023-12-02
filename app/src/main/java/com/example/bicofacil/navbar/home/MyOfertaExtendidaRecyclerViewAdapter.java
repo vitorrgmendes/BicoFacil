@@ -5,22 +5,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.bicofacil.navbar.home.placeholder.PlaceholderContent.PlaceholderItem;
+import com.example.bicofacil.BD.avaliacao.Avaliacao;
 import com.example.bicofacil.databinding.FragmentItemAvaliacaoBinding;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyOfertaExtendidaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertaExtendidaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Avaliacao> mValues;
 
-    public MyOfertaExtendidaRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public MyOfertaExtendidaRecyclerViewAdapter(List<Avaliacao> items) {
         mValues = items;
     }
 
@@ -33,9 +30,11 @@ public class MyOfertaExtendidaRecyclerViewAdapter extends RecyclerView.Adapter<M
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        Avaliacao avaliacaoAtual = mValues.get(position);
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.textViewNome.setText(avaliacaoAtual.nomeUsuario);
+        holder.txtViewDescricaoDaAvaliacao.setText(avaliacaoAtual.comentario);
+        holder.nota.setRating((float) avaliacaoAtual.nota);
     }
 
     @Override
@@ -44,19 +43,18 @@ public class MyOfertaExtendidaRecyclerViewAdapter extends RecyclerView.Adapter<M
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public final TextView textViewNome;
+        public final TextView txtViewDescricaoDaAvaliacao;
+        public final RatingBar nota;
+        public Avaliacao mItem;
 
         public ViewHolder(FragmentItemAvaliacaoBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            textViewNome = binding.textViewNome;
+            txtViewDescricaoDaAvaliacao = binding.textViewDescricaoDaAvaliacao;
+            nota = binding.nota;
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
+
     }
 }

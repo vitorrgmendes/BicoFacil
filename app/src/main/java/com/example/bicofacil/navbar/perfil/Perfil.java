@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
-import com.example.bicofacil.navbar.home.OfertasVagaFragment;
+import com.example.bicofacil.navbar.home.OfertasFragment;
 
 public class Perfil extends Fragment implements View.OnClickListener {
 
@@ -150,7 +149,7 @@ public class Perfil extends Fragment implements View.OnClickListener {
             Bundle bundle = new Bundle();
             bundle.putString("chave", "publicacoesPorId");
 
-            OfertasVagaFragment ofertasVagaFragment = new OfertasVagaFragment();
+            OfertasFragment ofertasVagaFragment = new OfertasFragment();
             ofertasVagaFragment.setArguments(bundle);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);

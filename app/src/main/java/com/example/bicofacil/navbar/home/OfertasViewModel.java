@@ -1,8 +1,6 @@
 package com.example.bicofacil.navbar.home;
 
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -17,14 +15,14 @@ import com.example.bicofacil.UsuarioViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfertasVagasViewModel extends ViewModel {
+public class OfertasViewModel extends ViewModel {
     private UsuarioDao usuarioDao;
     private UsuarioViewModel usuarioViewModel;
     private PublicacaoDao publicacaoDao;
     private FavoritosDao favoritosDao;
     private MutableLiveData<List<Publicacao>> listaVagas;
-    public OfertasVagasViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
-                                 PublicacaoDao publicacaoDao, FavoritosDao favoritosDao) {
+    public OfertasViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
+                            PublicacaoDao publicacaoDao, FavoritosDao favoritosDao) {
         this.usuarioDao = usuarioDao;
         this.usuarioViewModel = usuarioViewModel;
         this.publicacaoDao = publicacaoDao;
@@ -33,26 +31,6 @@ public class OfertasVagasViewModel extends ViewModel {
     }
     public LiveData<List<Publicacao>> getListaVagas() {
         return listaVagas;
-    }
-
-    public void carregarLista(String chaveLista, int id) {
-        new Thread(() -> {
-            if (chaveLista == "vagas") {
-                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesVagas();
-                listaVagas.postValue(publicacoes);
-            }
-
-            if (chaveLista == "servicos") {
-                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesServicos();
-                listaVagas.postValue(publicacoes);
-            }
-
-            if (chaveLista == "publicacoesPorId") {
-                List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesPorUsuarioId(id);
-                listaVagas.postValue(publicacoes);
-            }
-
-        }).start();
     }
 
     public void atualizarFavorito(int idPublicacao, boolean favorito, FavoritoAtualizadoCallback callback){

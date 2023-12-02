@@ -1,7 +1,5 @@
 package com.example.bicofacil.navbar.home;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,26 +10,25 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.lifecycle.LifecycleOwner;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bicofacil.BD.publicacao.Publicacao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.databinding.FragmentOfertasBinding;
+import com.example.bicofacil.navbar.perfil.Perfil;
 
 import java.util.List;
-import java.util.Map;
 
 
-public class MyOfertasVagaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertasVagaRecyclerViewAdapter
+public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertasRecyclerViewAdapter
         .ViewHolder> {
 
     private final List<Publicacao> listaPublicacoes;
     private OnItemClickListener listener;
-    private final OfertasVagasViewModel viewModel;
+    private final OfertasViewModel viewModel;
 
-    public MyOfertasVagaRecyclerViewAdapter(List<Publicacao> listaP, OfertasVagasViewModel viewModel) {
+    public MyOfertasRecyclerViewAdapter(List<Publicacao> listaP, OfertasViewModel viewModel) {
         listaPublicacoes = listaP;
         this.viewModel = viewModel;
     }
@@ -72,15 +69,14 @@ public class MyOfertasVagaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfe
             holder.imagemOferta.setImageResource(R.drawable.baseline_no_photography_24);
         }
 
-        View.OnClickListener clickListener = v -> {
+        holder.itemView.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION && listener != null) {
+                Publicacao publicacao = listaPublicacoes.get(currentPosition);
+                listener.onFavoritoClick(publicacao, currentPosition);
+            }
+        });
 
-        };
-
-        holder.txtDescricao.setOnClickListener(clickListener);
-        holder.txtTitulo.setOnClickListener(clickListener);
-        holder.txtContato.setOnClickListener(clickListener);
-        holder.imagemOferta.setOnClickListener(clickListener);
-        holder.btnFavorito.setOnClickListener(clickListener);
 
         holder.btnFavorito.setOnClickListener(v -> {
             int currentPosition = holder.getAdapterPosition();

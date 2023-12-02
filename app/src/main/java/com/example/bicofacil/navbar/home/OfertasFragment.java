@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,9 +29,9 @@ import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 
 
-public class OfertasVagaFragment extends Fragment implements View.OnClickListener{
+public class OfertasFragment extends Fragment implements View.OnClickListener{
 
-    private OfertasVagasViewModel mViewModel;
+    private OfertasViewModel mViewModel;
     private AppDatabase db;
     private UsuarioDao usuarioDao;
     private UsuarioViewModel usuarioViewModel;
@@ -44,12 +45,12 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
     private String chaveLista;
 
 
-    public OfertasVagaFragment() {
+    public OfertasFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static OfertasVagaFragment newInstance(int columnCount) {
-        OfertasVagaFragment fragment = new OfertasVagaFragment();
+    public static OfertasFragment newInstance(int columnCount) {
+        OfertasFragment fragment = new OfertasFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -62,8 +63,6 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             chaveLista = getArguments().getString("chave");
-            usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
-            id = usuarioViewModel.getId().getValue();
         }
     }
 
@@ -74,19 +73,32 @@ public class OfertasVagaFragment extends Fragment implements View.OnClickListene
         usuarioDao = db.usuarioDao();
         publicacaoDao = db.publicacaoDao();
         favoritosDao = db.favoritosDao();
+        usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
+        id = usuarioViewModel.getId().getValue();
 
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
-                usuarioViewModel, publicacaoDao, favoritosDao)).get(OfertasVagasViewModel.class);
+                usuarioViewModel, publicacaoDao, favoritosDao)).get(OfertasViewModel.class);
 
         mViewModel.carregarFavoritosEAtualizarPublicacoes(chaveLista, id);
 
         mViewModel.getListaVagas().observe(getViewLifecycleOwner(), vagas -> {
-            Log.i("debug","listaVagas:"+ vagas.toString());
-                    if (recyclerView.getAdapter() == null) {
-                        recyclerView.setAdapter(new MyOfertasVagaRecyclerViewAdapter(vagas, mViewModel));
-                    } else {
-                        ((MyOfertasVagaRecyclerViewAdapter) recyclerView.getAdapter()).updateData(vagas);
-                    }
+            MyOfertasRecyclerViewAdapter adapter = new MyOfertasRecyclerViewAdapter(vagas, mViewModel);
+            adapter.setOnItemClickListener((publicacao, position) -> {
+                Bundle bundle = new Bundle();
+                bundle.putInt("idPublicacao",publicacao.id);
+                OfertaExtendidaFragment ofertaExtendidaFragment = new OfertaExtendidaFragment();
+                ofertaExtendidaFragment.setArguments(bundle);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, ofertaExtendidaFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            });
+
+            if (recyclerView.getAdapter() == null) {
+                recyclerView.setAdapter(adapter);
+            } else {
+                ((MyOfertasRecyclerViewAdapter) recyclerView.getAdapter()).updateData(vagas);
+            }
         });
     }
 

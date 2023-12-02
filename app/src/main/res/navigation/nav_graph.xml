@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/navigation_favoritos"
-        android:name="com.example.bicofacil.navbar.home.OfertasVagaFragment"
+        android:name="com.example.bicofacil.navbar.home.OfertasFragment"
         android:label="@string/title_favoritos"
         tools:layout="@layout/fragment_oferta_list">
     </fragment>
