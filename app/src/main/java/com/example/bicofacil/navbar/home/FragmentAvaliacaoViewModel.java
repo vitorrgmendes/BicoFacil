@@ -35,10 +35,12 @@ public class FragmentAvaliacaoViewModel extends ViewModel {
         this.avaliacaoDao = avaliacaoDao;
     }
 
-    public void cadastrarAvaliacao(int idPublicacao, int nota, String comentario, String nomeUsuario){
+    public void cadastrarAvaliacao(int idPublicacao, int idUsuario, int nota, String comentario,
+                                   String nomeUsuario){
         new Thread(() -> {
             Avaliacao avaliacao = new Avaliacao();
             avaliacao.publicacaoId = idPublicacao;
+            avaliacao.usuarioId = idUsuario;
             avaliacao.nota = nota;
             avaliacao.comentario = comentario;
             avaliacao.nomeUsuario = nomeUsuario;

@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.avaliacao.AvaliacaoDao;
@@ -32,6 +33,7 @@ import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
+import com.example.bicofacil.navbar.perfil.Login;
 
 
 public class OfertaExtendidaFragment extends Fragment implements View.OnClickListener {
@@ -55,6 +57,7 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
     private TextView txtHorario;
     private TextView txtContato;
     private Button btnAvaliar;
+    private RecyclerView recyclerView;
     public OfertaExtendidaFragment() {
     }
 
@@ -93,6 +96,8 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
 
         btnAvaliar.setOnClickListener(this);
 
+        recyclerView = view.findViewById(R.id.list);
+
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -122,6 +127,8 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
 
         mViewModel.buscarDadosPublicacao(idPulicacao);
 
+        mViewModel.buscarListaAvaliacoes(idPulicacao);
+
         mViewModel.getPublicacao().observe(getViewLifecycleOwner(), publicacao -> {
             if(publicacao!=null){
                 txtTituloOferta.setText(publicacao.titulo);
@@ -144,19 +151,35 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
                 txtContato.setText(publicacao.contato);
             }
             });
+
+        mViewModel.getListaAvaliacoes().observe(getViewLifecycleOwner(), avaliacoes -> {
+            MyOfertaExtendidaRecyclerViewAdapter adapter = new MyOfertaExtendidaRecyclerViewAdapter
+                    (avaliacoes);
+
+            if (recyclerView.getAdapter() == null) {
+                recyclerView.setAdapter(adapter);
+            } else {
+                ((MyOfertaExtendidaRecyclerViewAdapter) recyclerView.getAdapter()).updateData(avaliacoes);
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         if(v==btnAvaliar){
-            Bundle bundle = new Bundle();
-            bundle.putInt("idPublicacao",idPulicacao);
-            FragmentAvaliacao fragmentAvaliacao = new FragmentAvaliacao();
-            fragmentAvaliacao.setArguments(bundle);
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, fragmentAvaliacao);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            if(usuarioViewModel.getLogin().getValue()==true){
+                Bundle bundle = new Bundle();
+                bundle.putInt("idPublicacao",idPulicacao);
+                FragmentAvaliacao fragmentAvaliacao = new FragmentAvaliacao();
+                fragmentAvaliacao.setArguments(bundle);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragmentContainerView, fragmentAvaliacao);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            } else{
+                Toast.makeText(getActivity(), "É preciso estar logado para avaliar!",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

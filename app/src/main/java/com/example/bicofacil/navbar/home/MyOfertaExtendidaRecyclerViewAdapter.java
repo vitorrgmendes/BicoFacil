@@ -54,7 +54,10 @@ public class MyOfertaExtendidaRecyclerViewAdapter extends RecyclerView.Adapter<M
             txtViewDescricaoDaAvaliacao = binding.textViewDescricaoDaAvaliacao;
             nota = binding.nota;
         }
-
-
+    }
+    public void updateData(List<Avaliacao> novasAvaliacoes) {
+        novasAvaliacoes.clear();
+        novasAvaliacoes.addAll(novasAvaliacoes);
+        notifyDataSetChanged();
     }
 }

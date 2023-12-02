@@ -23,4 +23,7 @@ public interface AvaliacaoDao {
 
     @Query("SELECT * FROM avaliacao")
     List<Avaliacao> obterTodasAvaliacoes();
+
+    @Query("SELECT * FROM avaliacao WHERE publicacaoId = :publicacaoId")
+    List<Avaliacao> obterAvaliacoesPorPublicacaoId(int publicacaoId);
 }

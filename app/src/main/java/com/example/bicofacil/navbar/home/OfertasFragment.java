@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
 import com.example.bicofacil.BD.favoritos.FavoritosDao;
@@ -27,6 +28,7 @@ import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
+import com.example.bicofacil.navbar.perfil.Login;
 
 
 public class OfertasFragment extends Fragment implements View.OnClickListener{

@@ -114,8 +114,9 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
         }
 
         if(v==btnAvaliar){
-            mViewModel.cadastrarAvaliacao(idPulicacao,Math.round(nota.getRating()),comentario.
-                    getText().toString(),usuarioViewModel.getNome().getValue());
+            mViewModel.cadastrarAvaliacao(idPulicacao,usuarioViewModel.getId().getValue(),Math.
+                    round(nota.getRating()),comentario.getText().toString(),usuarioViewModel.
+                    getNome().getValue());
             }
         }
 }
