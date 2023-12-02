@@ -132,8 +132,6 @@ public class Perfil extends Fragment implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     mViewModel.excluirConta(id);
                     mViewModel.limparCache(getContext());
-                    Log.d("PerfilFragment", "Confirmação recebida:"+mViewModel.getConfirmacao()
-                            .getValue());
                 }
             });
 

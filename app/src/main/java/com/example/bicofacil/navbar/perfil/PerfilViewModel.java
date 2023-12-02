@@ -43,5 +43,6 @@ public class PerfilViewModel extends ViewModel {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+        usuarioViewModel.limparValores();
     }
 }

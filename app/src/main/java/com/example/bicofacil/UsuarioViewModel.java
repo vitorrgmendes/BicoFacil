@@ -48,4 +48,16 @@ public class UsuarioViewModel extends ViewModel {
     public void setTelefone(String telefone) { this.telefone.postValue(telefone); }
     public void setId(int id) {
         this.id.postValue(id);}
+
+    public void limparValores() {
+        id.postValue(0);
+        nome.postValue(null);
+        email.postValue(null);
+        telefone.postValue(null);
+        login.postValue(false);
+        senha.postValue(null);
+    }
 }
+
+
+

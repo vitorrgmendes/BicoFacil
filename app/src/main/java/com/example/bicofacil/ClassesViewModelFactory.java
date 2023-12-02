@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bicofacil.BD.favoritos.FavoritosDao;
 import com.example.bicofacil.BD.publicacao.PublicacaoDao;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.navbar.home.FragmentPublicacaoViewModel;
@@ -18,17 +19,20 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
     private final UsuarioDao usuarioDao;
     private final UsuarioViewModel usuarioViewModel;
     private final PublicacaoDao publicacaoDao;
+    private final FavoritosDao favoritosDao;
 
     public ClassesViewModelFactory(UsuarioDao usuarioDao) {
         this.usuarioDao = usuarioDao;
         this.usuarioViewModel = null;
         this.publicacaoDao = null;
+        this.favoritosDao = null;
     }
 
     public ClassesViewModelFactory(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel) {
         this.usuarioDao = usuarioDao;
         this.usuarioViewModel = usuarioViewModel;
         this.publicacaoDao = null;
+        this.favoritosDao = null;
     }
 
     public ClassesViewModelFactory(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel, 
@@ -36,6 +40,15 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
         this.usuarioDao = usuarioDao;
         this.usuarioViewModel = usuarioViewModel;
         this.publicacaoDao = publicacaoDao;
+        this.favoritosDao = null;
+    }
+
+    public ClassesViewModelFactory(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
+                                   PublicacaoDao publicacaoDao, FavoritosDao favoritosDao) {
+        this.usuarioDao = usuarioDao;
+        this.usuarioViewModel = usuarioViewModel;
+        this.publicacaoDao = publicacaoDao;
+        this.favoritosDao = favoritosDao;
     }
 
     @NonNull
@@ -54,7 +67,7 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
         }else if (modelClass.isAssignableFrom(FragmentPublicacaoViewModel.class)) {
             return (T) new FragmentPublicacaoViewModel(usuarioDao, usuarioViewModel, publicacaoDao);
         }else if (modelClass.isAssignableFrom(OfertasVagasViewModel.class)) {
-            return (T) new OfertasVagasViewModel(usuarioDao, usuarioViewModel, publicacaoDao);
+            return (T) new OfertasVagasViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao);
         }
         throw new IllegalArgumentException("Classe de ViewModel desconhecida");
     }

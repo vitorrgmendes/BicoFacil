@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 
 import com.example.bicofacil.R;
 
-public class Favoritos extends Fragment {
+public class FragmentFavoritos extends Fragment {
 
     private FavoritosViewModel mViewModel;
 
-    public static Favoritos newInstance() {
-        return new Favoritos();
+    public static FragmentFavoritos newInstance() {
+        return new FragmentFavoritos();
     }
 
     @Override

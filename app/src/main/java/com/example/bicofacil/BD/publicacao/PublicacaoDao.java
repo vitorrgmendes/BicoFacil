@@ -33,4 +33,12 @@ public interface PublicacaoDao {
 
     @Query("SELECT * FROM publicacao WHERE usuarioId = :usuarioId")
     List<Publicacao> obterPublicacoesPorUsuarioId(int usuarioId);
+    @Query("UPDATE publicacao SET favorito = :favorito WHERE id = :id")
+    void atualizarFavorito(int id, boolean favorito);
+
+    @Query("UPDATE publicacao SET favorito = 0")
+    void atualizarTodosFavoritosParaFalse();
+    @Query("UPDATE publicacao SET favorito = 1 WHERE id IN (:ids)")
+    void atualizarFavoritosParaTrue(List<Integer> ids);
+
 }

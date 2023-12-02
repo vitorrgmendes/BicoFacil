@@ -174,7 +174,7 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             imgBtnImagem.setImageBitmap(imageBitmap);

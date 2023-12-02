@@ -17,6 +17,14 @@
         style="@style/textViewAddPublicacao"
         app:layout_constraintStart_toStartOf="@id/imageView"/>
 
+    <TextView
+        android:id="@+id/txtNaoPublicacoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ainda não possui publicações"
+        android:visibility="gone" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
