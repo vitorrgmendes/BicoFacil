@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -70,6 +71,16 @@ public class MyOfertasVagaRecyclerViewAdapter extends RecyclerView.Adapter<MyOfe
         } else{
             holder.imagemOferta.setImageResource(R.drawable.baseline_no_photography_24);
         }
+
+        View.OnClickListener clickListener = v -> {
+
+        };
+
+        holder.txtDescricao.setOnClickListener(clickListener);
+        holder.txtTitulo.setOnClickListener(clickListener);
+        holder.txtContato.setOnClickListener(clickListener);
+        holder.imagemOferta.setOnClickListener(clickListener);
+        holder.btnFavorito.setOnClickListener(clickListener);
 
         holder.btnFavorito.setOnClickListener(v -> {
             int currentPosition = holder.getAdapterPosition();
