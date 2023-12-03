@@ -15,7 +15,27 @@
         android:id="@+id/txtTitulo"
         android:text="Ofertas de vagas"
         style="@style/textViewAddPublicacao"
-        app:layout_constraintStart_toStartOf="@id/imageView"/>
+        app:layout_constraintStart_toStartOf="@id/imageView" />
+
+    <RelativeLayout
+        android:id="@+id/semPublicacoes"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+            <TextView
+            android:id="@+id/txtNaoPublicacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ainda não possui publicações"
+            style="@style/textViewAddPublicacao"
+            android:textColor="@color/cinza"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
@@ -23,7 +43,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".navbar.home.OfertasVagaFragment"
+        tools:context=".navbar.home.OfertasFragment"
         tools:listitem="@layout/fragment_ofertas" />
 
 </LinearLayout>

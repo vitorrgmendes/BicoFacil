@@ -1,31 +1,29 @@
 package com.example.bicofacil.navbar.home;
 
-
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.bicofacil.BD.avaliacao.AvaliacaoDao;
+import com.example.bicofacil.BD.favoritos.FavoritosDao;
 import com.example.bicofacil.BD.publicacao.Publicacao;
 import com.example.bicofacil.BD.publicacao.PublicacaoDao;
-import com.example.bicofacil.BD.usuario.Usuario;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
 import com.example.bicofacil.UsuarioViewModel;
 
 import java.io.ByteArrayOutputStream;
 
-public class FragmentPublicacaoViewModel extends ViewModel {
+public class EditarPublicacaoViewModel extends ViewModel {
     private UsuarioDao usuarioDao;
     private UsuarioViewModel usuarioViewModel;
     private PublicacaoDao publicacaoDao;
-    private Publicacao publicacao;
-    public FragmentPublicacaoViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
-                                       PublicacaoDao publicacaoDao) {
-        this.usuarioDao = usuarioDao;
-        this.usuarioViewModel = usuarioViewModel;
-        this.publicacaoDao = publicacaoDao;
+    private FavoritosDao favoritosDao;
+    private AvaliacaoDao avaliacaoDao;
+    private MutableLiveData<Publicacao> publicacao;
+    public LiveData<Publicacao> getPublicacao() {
+        return publicacao;
     }
     private final MutableLiveData<Boolean> fim = new MutableLiveData<>();
     public LiveData<Boolean> getFim() {
@@ -39,6 +37,23 @@ public class FragmentPublicacaoViewModel extends ViewModel {
     public boolean validarTelefone(String telefone) {
         return telefone.matches(TELEFONE_REGEX);
     }
+    public EditarPublicacaoViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
+                                      PublicacaoDao publicacaoDao, FavoritosDao favoritosDao, AvaliacaoDao
+                                              avaliacaoDao) {
+        this.usuarioDao = usuarioDao;
+        this.usuarioViewModel = usuarioViewModel;
+        this.publicacaoDao = publicacaoDao;
+        this.favoritosDao = favoritosDao;
+        this.avaliacaoDao = avaliacaoDao;
+        this.publicacao = new MutableLiveData<>();
+    }
+
+    public void buscarDadosPublicacao(int idPublicacao){
+        new Thread(() -> {
+            Publicacao novaPublicacao = publicacaoDao.obterPublicacoesPorId(idPublicacao);
+            publicacao.postValue(novaPublicacao);
+        }).start();
+    }
 
     public byte[] converterImagemParaBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -46,21 +61,19 @@ public class FragmentPublicacaoViewModel extends ViewModel {
         return stream.toByteArray();
     }
 
-    public void criarNovaPublicacao(int tipoOferta, byte[] imagemPublicacao, String titulo,
+    public void atualizarPublicacao(int idPublicacao, byte[] imagemPublicacao, String titulo,
                                     String descricao, String valor, String horario,
                                     String contato) {
         new Thread(() -> {
             try {
-                Publicacao novaPublicacao = new Publicacao();
-                novaPublicacao.usuarioId = usuarioViewModel.getId().getValue();
-                novaPublicacao.tipoOferta = tipoOferta;
+                Publicacao novaPublicacao = publicacaoDao.obterPublicacoesPorId(idPublicacao);
                 novaPublicacao.imagemPublicacao = imagemPublicacao;
                 novaPublicacao.titulo = titulo;
                 novaPublicacao.descricao = descricao;
                 novaPublicacao.valor = valor;
                 novaPublicacao.horario = horario;
                 novaPublicacao.contato = contato;
-                publicacaoDao.inserirPublicacao(novaPublicacao);
+                publicacaoDao.atualizarPublicacao(novaPublicacao);
                 fim.postValue(true);
 
             } catch (android.database.sqlite.SQLiteConstraintException e) {
@@ -68,6 +81,5 @@ public class FragmentPublicacaoViewModel extends ViewModel {
             }
         }).start();
     }
-
 
 }

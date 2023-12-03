@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/CorTeladeFundo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        style="@style/topTela" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imagemOferta"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="25dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_no_photography_24" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTituloOferta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Título da Publicação"
+                android:layout_marginLeft="13dp"
+                android:textColor="@color/azul"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDescricao"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_height="wrap_content"
+                android:text="Descrição da Publicação"
+                android:textColor="@color/azul"
+                android:textSize="20sp" />
+    </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtTituloValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="R$0,00"
+        android:textColor="@color/azul"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtTituloHorario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Horário"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtHorario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="Das 00:00 às 00:00"
+        android:textColor="@color/azul"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtTituloContato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Telefone para contato"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/azul"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtContato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="+559999999"
+        android:textColor="@color/azul"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtTituloAvaliacoes"
+        android:text="Avaliações"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        style="@style/textViewAddPublicacao"
+        app:layout_constraintStart_toStartOf="@id/imageView"/>
+
+        <TextView
+            android:id="@+id/semAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Oferta ainda não foi avaliada"
+            android:textColor="@color/cinza"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.example.bicofacil.navbar.home.OfertaExtendidaFragment"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"
+        tools:context=".navbar.home.OfertaExtendida"
+        tools:listitem="@layout/fragment_item_avaliacao" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_avaliar"
+            style="@style/ButtonCadastrar"
+            android:text="Avaliar" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_editar"
+            style="@style/ButtonCadastrar"
+            android:text="Editar"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_excluir"
+            style="@style/ButtonSair"
+            android:text="Excluir oferta"
+            android:visibility="gone"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_Voltar"
+            style="@style/ButtonCadastrar"
+            android:text="Voltar"
+            android:layout_marginBottom="25dp"/>
+
+</LinearLayout>
+</ScrollView>
