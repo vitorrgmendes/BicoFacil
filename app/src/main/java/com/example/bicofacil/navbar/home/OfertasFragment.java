@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
     private TextView txtTitulo;
     private AvaliacaoDao avaliacaoDao;
     private RecyclerView recyclerView;
+    private RelativeLayout semPublicacoes;
     private int id;
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
@@ -91,6 +93,12 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
 
         mViewModel.getListaMediaAvaliacoes().observe(getViewLifecycleOwner(), notas -> {
         mViewModel.getListaVagas().observe(getViewLifecycleOwner(), vagas -> {
+
+            if (vagas == null || vagas.isEmpty()){
+                recyclerView.setVisibility(View.GONE);
+                semPublicacoes.setVisibility(View.VISIBLE);
+            }
+
             MyOfertasRecyclerViewAdapter adapter = new MyOfertasRecyclerViewAdapter(vagas, mViewModel,notas);
             adapter.setOnItemClickListener((publicacao, position) -> {
                 Bundle bundle = new Bundle();
@@ -118,7 +126,7 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_oferta_list, container, false);
 
         recyclerView = view.findViewById(R.id.list);
-
+        semPublicacoes = view.findViewById(R.id.semPublicacoes);
         txtTitulo = view.findViewById(R.id.txtTitulo);
         if (chaveLista == "servicos") {
             txtTitulo.setText("Ofertas de serviços");

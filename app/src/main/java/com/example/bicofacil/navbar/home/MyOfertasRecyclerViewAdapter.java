@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,18 +31,16 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
     private OnItemClickListener listener;
     private final OfertasViewModel viewModel;
 
-    public MyOfertasRecyclerViewAdapter(List<Publicacao> listaP, OfertasViewModel viewModel,
+    public MyOfertasRecyclerViewAdapter(List<Publicacao> listaPublicacoes, OfertasViewModel viewModel,
                                         List<AvaliacaoMedia> listaNotas) {
-        this.listaPublicacoes = listaP;
+        this.listaPublicacoes = listaPublicacoes;
         this.listaNotas = listaNotas;
         this.viewModel = viewModel;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         return new ViewHolder(FragmentOfertasBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
     }
 
     @Override
@@ -59,11 +58,13 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
         holder.txtTitulo.setText(listaPublicacoes.get(position).titulo);
         holder.txtContato.setText(listaPublicacoes.get(position).contato);
 
+
         if (listaPublicacoes.get(position).favorito) {
             holder.btnFavorito.setColorFilter(Color.RED);
         } else {
             holder.btnFavorito.clearColorFilter();
         }
+
 
         if (item.imagemPublicacao != null && item.imagemPublicacao.length > 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(item.imagemPublicacao, 0, item.
@@ -107,7 +108,6 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
             AvaliacaoMedia notaCorrespondente = encontrarNotaPorPublicacao(listaPublicacoes.get(position).id);
             if (notaCorrespondente != null) {
                 holder.nota.setRating(notaCorrespondente.mediaNota);
-                Log.i("",""+notaCorrespondente.mediaNota);
             } else {
                 holder.nota.setVisibility(View.GONE);
             }
@@ -129,6 +129,7 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
         }
         return null;
     }
+
 
     @Override
     public int getItemCount() {

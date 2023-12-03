@@ -56,6 +56,7 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
     private TextView txtValor;
     private TextView txtHorario;
     private TextView txtContato;
+    private TextView semAvaliacao;
     private Button btnAvaliar;
     private RecyclerView recyclerView;
     public OfertaExtendidaFragment() {
@@ -93,6 +94,7 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
         txtHorario = view.findViewById(R.id.txtHorario);
         txtContato = view.findViewById(R.id.txtContato);
         btnAvaliar = view.findViewById(R.id.button_avaliar);
+        semAvaliacao = view.findViewById(R.id.semAvaliacao);
 
         btnAvaliar.setOnClickListener(this);
 
@@ -153,6 +155,12 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
             });
 
         mViewModel.getListaAvaliacoes().observe(getViewLifecycleOwner(), avaliacoes -> {
+
+            if (avaliacoes == null || avaliacoes.isEmpty()){
+                recyclerView.setVisibility(View.GONE);
+                semAvaliacao.setVisibility(View.VISIBLE);
+            }
+
             MyOfertaExtendidaRecyclerViewAdapter adapter = new MyOfertaExtendidaRecyclerViewAdapter
                     (avaliacoes);
 

@@ -116,6 +116,16 @@
         style="@style/textViewAddPublicacao"
         app:layout_constraintStart_toStartOf="@id/imageView"/>
 
+        <TextView
+            android:id="@+id/semAvaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Oferta ainda não foi avaliada"
+            android:textColor="@color/cinza"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:name="com.example.bicofacil.navbar.home.OfertaExtendidaFragment"
