@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
+import com.example.bicofacil.BD.avaliacao.AvaliacaoDao;
 import com.example.bicofacil.BD.favoritos.FavoritosDao;
 import com.example.bicofacil.BD.publicacao.PublicacaoDao;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
@@ -40,6 +41,7 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
     private PublicacaoDao publicacaoDao;
     private FavoritosDao favoritosDao;
     private TextView txtTitulo;
+    private AvaliacaoDao avaliacaoDao;
     private RecyclerView recyclerView;
     private int id;
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -75,16 +77,21 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
         usuarioDao = db.usuarioDao();
         publicacaoDao = db.publicacaoDao();
         favoritosDao = db.favoritosDao();
+        avaliacaoDao = db.avaliacaoDao();
+
         usuarioViewModel = ((navBar) requireActivity()).getUsuarioViewModel();
         id = usuarioViewModel.getId().getValue();
 
         mViewModel = new ViewModelProvider(this, new ClassesViewModelFactory(usuarioDao,
-                usuarioViewModel, publicacaoDao, favoritosDao)).get(OfertasViewModel.class);
+                usuarioViewModel, publicacaoDao, favoritosDao, avaliacaoDao)).get(OfertasViewModel.class);
 
         mViewModel.carregarFavoritosEAtualizarPublicacoes(chaveLista, id);
 
+        mViewModel.carregarValorNota();
+
+        mViewModel.getListaMediaAvaliacoes().observe(getViewLifecycleOwner(), notas -> {
         mViewModel.getListaVagas().observe(getViewLifecycleOwner(), vagas -> {
-            MyOfertasRecyclerViewAdapter adapter = new MyOfertasRecyclerViewAdapter(vagas, mViewModel);
+            MyOfertasRecyclerViewAdapter adapter = new MyOfertasRecyclerViewAdapter(vagas, mViewModel,notas);
             adapter.setOnItemClickListener((publicacao, position) -> {
                 Bundle bundle = new Bundle();
                 bundle.putInt("idPublicacao",publicacao.id);
@@ -101,7 +108,7 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
             } else {
                 ((MyOfertasRecyclerViewAdapter) recyclerView.getAdapter()).updateData(vagas);
             }
-        });
+        }); });
     }
 
 

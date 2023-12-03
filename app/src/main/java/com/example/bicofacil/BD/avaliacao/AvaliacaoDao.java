@@ -26,4 +26,7 @@ public interface AvaliacaoDao {
 
     @Query("SELECT * FROM avaliacao WHERE publicacaoId = :publicacaoId")
     List<Avaliacao> obterAvaliacoesPorPublicacaoId(int publicacaoId);
+
+    @Query("SELECT publicacaoId, AVG(nota) as mediaNota FROM Avaliacao GROUP BY publicacaoId")
+    List<AvaliacaoMedia> listaMediaNotasPorPublicacao();
 }

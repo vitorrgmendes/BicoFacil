@@ -85,7 +85,8 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
         }else if (modelClass.isAssignableFrom(FragmentPublicacaoViewModel.class)) {
             return (T) new FragmentPublicacaoViewModel(usuarioDao, usuarioViewModel, publicacaoDao);
         }else if (modelClass.isAssignableFrom(OfertasViewModel.class)) {
-            return (T) new OfertasViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao);
+            return (T) new OfertasViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao,
+                    avaliacaoDao);
         }else if (modelClass.isAssignableFrom(OfertaExtendidaViewModel.class)) {
             return (T) new OfertaExtendidaViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao,
                     avaliacaoDao);

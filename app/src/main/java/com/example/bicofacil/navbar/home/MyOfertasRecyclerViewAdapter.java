@@ -9,14 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bicofacil.BD.avaliacao.AvaliacaoMedia;
 import com.example.bicofacil.BD.publicacao.Publicacao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.databinding.FragmentOfertasBinding;
-import com.example.bicofacil.navbar.perfil.Perfil;
 
 import java.util.List;
 
@@ -25,11 +26,14 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
         .ViewHolder> {
 
     private final List<Publicacao> listaPublicacoes;
+    private final List<AvaliacaoMedia> listaNotas;
     private OnItemClickListener listener;
     private final OfertasViewModel viewModel;
 
-    public MyOfertasRecyclerViewAdapter(List<Publicacao> listaP, OfertasViewModel viewModel) {
-        listaPublicacoes = listaP;
+    public MyOfertasRecyclerViewAdapter(List<Publicacao> listaP, OfertasViewModel viewModel,
+                                        List<AvaliacaoMedia> listaNotas) {
+        this.listaPublicacoes = listaP;
+        this.listaNotas = listaNotas;
         this.viewModel = viewModel;
     }
 
@@ -99,6 +103,15 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
                 }
             });
         });
+
+            AvaliacaoMedia notaCorrespondente = encontrarNotaPorPublicacao(listaPublicacoes.get(position).id);
+            if (notaCorrespondente != null) {
+                holder.nota.setRating(notaCorrespondente.mediaNota);
+                Log.i("",""+notaCorrespondente.mediaNota);
+            } else {
+                holder.nota.setVisibility(View.GONE);
+            }
+
     }
 
     public interface OnItemClickListener {
@@ -108,6 +121,14 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
         this.listener = listener;
     }
 
+    private AvaliacaoMedia encontrarNotaPorPublicacao(int publicacaoId) {
+        for (AvaliacaoMedia nota : listaNotas) {
+            if (nota.publicacaoId == publicacaoId) {
+                return nota;
+            }
+        }
+        return null;
+    }
 
     @Override
     public int getItemCount() {
@@ -120,6 +141,7 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
         public final TextView txtContato;
         public final ImageButton btnFavorito;
         public final ImageView imagemOferta;
+        private final RatingBar nota;
         public Publicacao mItem;
         public ViewHolder(FragmentOfertasBinding binding) {
             super(binding.getRoot());
@@ -128,6 +150,7 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
             txtContato = binding.textViewContato;
             btnFavorito = binding.imageButtonFavorito;
             imagemOferta = binding.imageOferta;
+            nota = binding.nota;
         }
 
 

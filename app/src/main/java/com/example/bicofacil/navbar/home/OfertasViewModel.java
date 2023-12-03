@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.bicofacil.BD.avaliacao.AvaliacaoDao;
+import com.example.bicofacil.BD.avaliacao.AvaliacaoMedia;
 import com.example.bicofacil.BD.favoritos.Favoritos;
 import com.example.bicofacil.BD.favoritos.FavoritosDao;
 import com.example.bicofacil.BD.publicacao.Publicacao;
@@ -20,17 +22,25 @@ public class OfertasViewModel extends ViewModel {
     private UsuarioViewModel usuarioViewModel;
     private PublicacaoDao publicacaoDao;
     private FavoritosDao favoritosDao;
+    private AvaliacaoDao avaliacaoDao;
     private MutableLiveData<List<Publicacao>> listaVagas;
+    private MutableLiveData<List<AvaliacaoMedia>> listaMediaAvaliacoes;
     public OfertasViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
-                            PublicacaoDao publicacaoDao, FavoritosDao favoritosDao) {
+                            PublicacaoDao publicacaoDao, FavoritosDao favoritosDao, AvaliacaoDao
+                                    avaliacaoDao) {
         this.usuarioDao = usuarioDao;
         this.usuarioViewModel = usuarioViewModel;
         this.publicacaoDao = publicacaoDao;
         this.favoritosDao = favoritosDao;
+        this.avaliacaoDao = avaliacaoDao;
         this.listaVagas = new MutableLiveData<>();
+        this.listaMediaAvaliacoes = new MutableLiveData<>();
     }
     public LiveData<List<Publicacao>> getListaVagas() {
         return listaVagas;
+    }
+    public LiveData<List<AvaliacaoMedia>> getListaMediaAvaliacoes() {
+        return listaMediaAvaliacoes;
     }
 
     public void atualizarFavorito(int idPublicacao, boolean favorito, FavoritoAtualizadoCallback callback){
@@ -110,6 +120,13 @@ public class OfertasViewModel extends ViewModel {
         }).start();
     }
 
+    public void carregarValorNota(){
+        new Thread(() -> {
+            List<AvaliacaoMedia> listaAvaliacao= avaliacaoDao.listaMediaNotasPorPublicacao();
+            listaMediaAvaliacoes.postValue(listaAvaliacao);
+        }).start();
+
+    }
 
 
 }
