@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.bicofacil.BD.avaliacao.Avaliacao;
 import com.example.bicofacil.BD.avaliacao.AvaliacaoDao;
 import com.example.bicofacil.BD.avaliacao.AvaliacaoMedia;
 import com.example.bicofacil.BD.favoritos.Favoritos;
@@ -35,6 +36,7 @@ public class OfertasViewModel extends ViewModel {
         this.avaliacaoDao = avaliacaoDao;
         this.listaVagas = new MutableLiveData<>();
         this.listaMediaAvaliacoes = new MutableLiveData<>();
+
     }
     public LiveData<List<Publicacao>> getListaVagas() {
         return listaVagas;
@@ -125,8 +127,23 @@ public class OfertasViewModel extends ViewModel {
             List<AvaliacaoMedia> listaAvaliacao= avaliacaoDao.listaMediaNotasPorPublicacao();
             listaMediaAvaliacoes.postValue(listaAvaliacao);
         }).start();
-
     }
+
+    public void deletarPulicacao(String chaveLista, int usuarioId ,int publicacaoId){
+        new Thread(() -> {
+            List<Avaliacao> listaAvaliacao = avaliacaoDao.obterAvaliacoesPorPublicacaoId(publicacaoId);
+
+            if (listaAvaliacao != null || !listaAvaliacao.isEmpty()){
+                avaliacaoDao.deletarAvaliacoesPorPublicacaoId(publicacaoId);
+            }
+
+            Publicacao publicacao = publicacaoDao.obterPublicacoesPorId(publicacaoId);
+            publicacaoDao.deletarPublicacao(publicacao);
+            carregarFavoritosEAtualizarPublicacoes(chaveLista, usuarioId);
+
+        }).start();
+    }
+
 
 
 }

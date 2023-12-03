@@ -142,10 +142,23 @@
         tools:context=".navbar.home.OfertaExtendidaFragment"
         tools:listitem="@layout/fragment_item_avaliacao" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_avaliar"
-        style="@style/ButtonCadastrar"
-        android:text="Avaliar" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_avaliar"
+            style="@style/ButtonCadastrar"
+            android:text="Avaliar" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_editar"
+            style="@style/ButtonCadastrar"
+            android:text="Editar"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_excluir"
+            style="@style/ButtonSair"
+            android:text="Excluir oferta"
+            android:visibility="gone"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_Voltar"

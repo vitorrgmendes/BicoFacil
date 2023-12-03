@@ -24,6 +24,10 @@ public class OfertaExtendidaViewModel extends ViewModel {
     public LiveData<Publicacao> getPublicacao() {
         return publicacao;
     }
+    private MutableLiveData<Boolean> fimDelet;
+    public LiveData<Boolean> getFimDelet() {
+        return fimDelet;
+    }
     private MutableLiveData<List<Avaliacao>> listaAvaliacoes;
     public LiveData<List<Avaliacao>> getListaAvaliacoes() {
         return listaAvaliacoes;
@@ -38,6 +42,7 @@ public class OfertaExtendidaViewModel extends ViewModel {
         this.avaliacaoDao = avaliacaoDao;
         this.publicacao = new MutableLiveData<>();
         this.listaAvaliacoes = new MutableLiveData<>();
+        this.fimDelet = new MutableLiveData<>();
     }
 
     public void buscarDadosPublicacao(int idPublicacao){
@@ -51,6 +56,21 @@ public class OfertaExtendidaViewModel extends ViewModel {
         new Thread(() -> {
             List<Avaliacao> novaListaAvaliacoes = avaliacaoDao.obterAvaliacoesPorPublicacaoId(idPulicacao);
             listaAvaliacoes.postValue(novaListaAvaliacoes);
+        }).start();
+    }
+
+    public void deletarPulicacao(int publicacaoId){
+        new Thread(() -> {
+            List<Avaliacao> listaAvaliacao = avaliacaoDao.obterAvaliacoesPorPublicacaoId(publicacaoId);
+
+            if (listaAvaliacao != null || !listaAvaliacao.isEmpty()){
+                avaliacaoDao.deletarAvaliacoesPorPublicacaoId(publicacaoId);
+            }
+
+            Publicacao publicacao = publicacaoDao.obterPublicacoesPorId(publicacaoId);
+            publicacaoDao.deletarPublicacao(publicacao);
+
+            fimDelet.postValue(true);
         }).start();
     }
 

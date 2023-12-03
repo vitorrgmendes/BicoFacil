@@ -29,4 +29,7 @@ public interface AvaliacaoDao {
 
     @Query("SELECT publicacaoId, AVG(nota) as mediaNota FROM Avaliacao GROUP BY publicacaoId")
     List<AvaliacaoMedia> listaMediaNotasPorPublicacao();
+
+    @Query("DELETE FROM avaliacao WHERE publicacaoId = :publicacaoId")
+    void deletarAvaliacoesPorPublicacaoId(int publicacaoId);
 }

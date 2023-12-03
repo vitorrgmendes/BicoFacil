@@ -1,5 +1,10 @@
 package com.example.bicofacil.navbar.home;
 
+import static java.security.AccessController.getContext;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,14 +33,21 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
 
     private final List<Publicacao> listaPublicacoes;
     private final List<AvaliacaoMedia> listaNotas;
+    public final int idUsuario;
     private OnItemClickListener listener;
     private final OfertasViewModel viewModel;
+    private final Context context;
+    private final String chaveLista;
 
     public MyOfertasRecyclerViewAdapter(List<Publicacao> listaPublicacoes, OfertasViewModel viewModel,
-                                        List<AvaliacaoMedia> listaNotas) {
+                                        List<AvaliacaoMedia> listaNotas, int idUsuario, Context context
+            ,String chaveLista) {
         this.listaPublicacoes = listaPublicacoes;
         this.listaNotas = listaNotas;
         this.viewModel = viewModel;
+        this.idUsuario = idUsuario;
+        this.context = context;
+        this.chaveLista = chaveLista;
     }
 
     @Override
@@ -65,6 +77,10 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
             holder.btnFavorito.clearColorFilter();
         }
 
+        if(idUsuario==item.usuarioId){
+            holder.btnEditar.setVisibility(View.VISIBLE);
+            holder.btnDeletar.setVisibility(View.VISIBLE);
+        }
 
         if (item.imagemPublicacao != null && item.imagemPublicacao.length > 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(item.imagemPublicacao, 0, item.
@@ -78,8 +94,44 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
             int currentPosition = holder.getAdapterPosition();
             if (currentPosition != RecyclerView.NO_POSITION && listener != null) {
                 Publicacao publicacao = listaPublicacoes.get(currentPosition);
-                listener.onFavoritoClick(publicacao, currentPosition);
+                listener.onFavoritoClick(publicacao, currentPosition, "publicacaoExtendida");
             }
+        });
+
+        holder.btnEditar.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION && listener != null) {
+                Publicacao publicacao = listaPublicacoes.get(currentPosition);
+                listener.onFavoritoClick(publicacao, currentPosition, "editar");
+            }
+        });
+
+        holder.btnDeletar.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition == RecyclerView.NO_POSITION) {
+                return;
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Confirmação");
+            builder.setMessage("Tem certeza de que deseja excluir a sua publicação?");
+            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    viewModel.deletarPulicacao(chaveLista, idUsuario, listaPublicacoes.get(position)
+                            .id);
+                }
+            });
+
+            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
 
@@ -115,7 +167,7 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
     }
 
     public interface OnItemClickListener {
-        void onFavoritoClick(Publicacao publicacao, int position);
+        void onFavoritoClick(Publicacao publicacao, int position, String chaveTela);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
@@ -141,6 +193,8 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
         public final TextView txtTitulo;
         public final TextView txtContato;
         public final ImageButton btnFavorito;
+        public final ImageButton btnDeletar;
+        public final ImageButton btnEditar;
         public final ImageView imagemOferta;
         private final RatingBar nota;
         public Publicacao mItem;
@@ -151,6 +205,8 @@ public class MyOfertasRecyclerViewAdapter extends RecyclerView.Adapter<MyOfertas
             txtContato = binding.textViewContato;
             btnFavorito = binding.imageButtonFavorito;
             imagemOferta = binding.imageOferta;
+            btnDeletar = binding.imageButtonDeletar;
+            btnEditar = binding.imageButtonEditar;
             nota = binding.nota;
         }
 

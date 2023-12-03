@@ -99,8 +99,10 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
                 semPublicacoes.setVisibility(View.VISIBLE);
             }
 
-            MyOfertasRecyclerViewAdapter adapter = new MyOfertasRecyclerViewAdapter(vagas, mViewModel,notas);
-            adapter.setOnItemClickListener((publicacao, position) -> {
+            MyOfertasRecyclerViewAdapter adapter = new MyOfertasRecyclerViewAdapter(vagas, mViewModel
+                    ,notas,usuarioViewModel.getId().getValue(), getContext(), chaveLista);
+            adapter.setOnItemClickListener((publicacao, position, chaveTela) -> {
+                if(chaveTela=="publicacaoExtendida"){
                 Bundle bundle = new Bundle();
                 bundle.putInt("idPublicacao",publicacao.id);
                 bundle.putString("chave",chaveLista);
@@ -109,7 +111,19 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragmentContainerView, ofertaExtendidaFragment);
                 transaction.addToBackStack(null);
-                transaction.commit();
+                transaction.commit();}
+
+                if(chaveTela=="editar"){
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idPublicacao",publicacao.id);
+                    bundle.putString("chave",chaveLista);
+                    EditarPublicacao editarPublicacao = new EditarPublicacao();
+                    editarPublicacao.setArguments(bundle);
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragmentContainerView, editarPublicacao);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             });
 
             if (recyclerView.getAdapter() == null) {
