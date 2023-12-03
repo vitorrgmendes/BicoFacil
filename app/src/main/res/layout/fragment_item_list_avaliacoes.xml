@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Título da Publicação"
+                android:layout_marginLeft="13dp"
                 android:textColor="@color/azul"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -45,6 +46,7 @@
             <TextView
                 android:id="@+id/txtDescricao"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="13dp"
                 android:layout_height="wrap_content"
                 android:text="Descrição da Publicação"
                 android:textColor="@color/azul"
@@ -57,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Valor"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="25dp"
         android:textColor="@color/azul"
         android:textSize="20sp"
@@ -75,6 +78,7 @@
         android:id="@+id/txtTituloHorario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Horário"
         android:layout_marginLeft="25dp"
         android:textColor="@color/azul"
@@ -95,6 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Telefone para contato"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="25dp"
         android:textColor="@color/azul"
         android:textSize="20sp"
@@ -113,6 +118,7 @@
         android:id="@+id/txtTituloAvaliacoes"
         android:text="Avaliações"
         android:textSize="20sp"
+        android:layout_marginTop="8dp"
         style="@style/textViewAddPublicacao"
         app:layout_constraintStart_toStartOf="@id/imageView"/>
 
@@ -139,8 +145,13 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_avaliar"
         style="@style/ButtonCadastrar"
-        android:text="Avaliar"
-        android:layout_marginBottom="25dp"/>
+        android:text="Avaliar" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_Voltar"
+            style="@style/ButtonCadastrar"
+            android:text="Voltar"
+            android:layout_marginBottom="25dp"/>
 
 </LinearLayout>
 </ScrollView>

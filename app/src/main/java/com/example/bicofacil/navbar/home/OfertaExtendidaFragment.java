@@ -58,7 +58,9 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
     private TextView txtContato;
     private TextView semAvaliacao;
     private Button btnAvaliar;
+    private Button btnVoltar;
     private RecyclerView recyclerView;
+    private String chaveLista;
     public OfertaExtendidaFragment() {
     }
 
@@ -86,6 +88,7 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
         View view = inflater.inflate(R.layout.fragment_item_list_avaliacoes, container, false);
 
         idPulicacao = getArguments().getInt("idPublicacao");
+        chaveLista = getArguments().getString("chave");
 
         txtTituloOferta = view.findViewById(R.id.txtTituloOferta);
         imgOferta = view.findViewById(R.id.imagemOferta);
@@ -95,8 +98,10 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
         txtContato = view.findViewById(R.id.txtContato);
         btnAvaliar = view.findViewById(R.id.button_avaliar);
         semAvaliacao = view.findViewById(R.id.semAvaliacao);
+        btnVoltar = view.findViewById(R.id.button_Voltar);
 
         btnAvaliar.setOnClickListener(this);
+        btnVoltar.setOnClickListener(this);
 
         recyclerView = view.findViewById(R.id.list);
 
@@ -188,6 +193,18 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
                 Toast.makeText(getActivity(), "É preciso estar logado para avaliar!",
                         Toast.LENGTH_SHORT).show();
             }
+        }
+
+        if(v==btnVoltar){
+            Bundle bundle = new Bundle();
+            bundle.putString("chave", chaveLista);
+
+            OfertasFragment ofertasVagaFragment = new OfertasFragment();
+            ofertasVagaFragment.setArguments(bundle);
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
     }
 }

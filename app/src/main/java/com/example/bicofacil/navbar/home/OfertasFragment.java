@@ -103,6 +103,7 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
             adapter.setOnItemClickListener((publicacao, position) -> {
                 Bundle bundle = new Bundle();
                 bundle.putInt("idPublicacao",publicacao.id);
+                bundle.putString("chave",chaveLista);
                 OfertaExtendidaFragment ofertaExtendidaFragment = new OfertaExtendidaFragment();
                 ofertaExtendidaFragment.setArguments(bundle);
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
