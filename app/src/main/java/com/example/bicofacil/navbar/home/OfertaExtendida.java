@@ -15,12 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +33,9 @@ import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
-import com.example.bicofacil.navbar.perfil.Login;
 
 
-public class OfertaExtendidaFragment extends Fragment implements View.OnClickListener {
+public class OfertaExtendida extends Fragment implements View.OnClickListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -65,12 +62,12 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
     private String chaveLista;
     private Button btnEditar;
     private Button btnExcluir;
-    public OfertaExtendidaFragment() {
+    public OfertaExtendida() {
     }
 
     @SuppressWarnings("unused")
-    public static OfertaExtendidaFragment newInstance(int columnCount) {
-        OfertaExtendidaFragment fragment = new OfertaExtendidaFragment();
+    public static OfertaExtendida newInstance(int columnCount) {
+        OfertaExtendida fragment = new OfertaExtendida();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -204,11 +201,18 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mViewModel.buscarDadosPublicacao(idPulicacao);
+    }
+
+    @Override
     public void onClick(View v) {
         if(v==btnAvaliar){
             if(usuarioViewModel.getLogin().getValue()==true){
                 Bundle bundle = new Bundle();
                 bundle.putInt("idPublicacao",idPulicacao);
+                bundle.putString("chave", chaveLista);
                 FragmentAvaliacao fragmentAvaliacao = new FragmentAvaliacao();
                 fragmentAvaliacao.setArguments(bundle);
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -253,6 +257,18 @@ public class OfertaExtendidaFragment extends Fragment implements View.OnClickLis
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        }
+
+        if(v==btnEditar){
+            Bundle bundle = new Bundle();
+            bundle.putInt("idPublicacao",idPulicacao);
+            bundle.putString("chave",chaveLista);
+            EditarPublicacao editarPublicacao = new EditarPublicacao();
+            editarPublicacao.setArguments(bundle);
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, editarPublicacao);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
     }
 }

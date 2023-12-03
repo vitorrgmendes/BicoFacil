@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,7 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
     private FavoritosDao favoritosDao;
     private AvaliacaoDao avaliacaoDao;
     private int idPulicacao;
+    private String chaveVoltar;
     private RatingBar nota;
     private EditText comentario;
     private Button btnAvaliar;
@@ -54,6 +54,7 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_avaliacao, container, false);
 
         idPulicacao = getArguments().getInt("idPublicacao");
+        chaveVoltar = getArguments().getString("chave");
 
         nota = view.findViewById(R.id.nota);
         comentario = view.findViewById(R.id.editComentario);
@@ -88,10 +89,11 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
                             Toast.LENGTH_SHORT).show();
                     Bundle bundle = new Bundle();
                     bundle.putInt("idPublicacao",idPulicacao);
-                    OfertaExtendidaFragment ofertaExtendidaFragment = new OfertaExtendidaFragment();
-                    ofertaExtendidaFragment.setArguments(bundle);
+                    bundle.putString("chave", chaveVoltar);
+                    OfertaExtendida ofertaExtendida = new OfertaExtendida();
+                    ofertaExtendida.setArguments(bundle);
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragmentContainerView, ofertaExtendidaFragment);
+                    transaction.replace(R.id.fragmentContainerView, ofertaExtendida);
                     transaction.addToBackStack(null);
                     transaction.commit();
                 }
@@ -105,10 +107,11 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
         if(v==btnCancelar){
             Bundle bundle = new Bundle();
             bundle.putInt("idPublicacao",idPulicacao);
-            OfertaExtendidaFragment ofertaExtendidaFragment = new OfertaExtendidaFragment();
-            ofertaExtendidaFragment.setArguments(bundle);
+            bundle.putString("chave", chaveVoltar);
+            OfertaExtendida ofertaExtendida = new OfertaExtendida();
+            ofertaExtendida.setArguments(bundle);
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainerView, ofertaExtendidaFragment);
+            transaction.replace(R.id.fragmentContainerView, ofertaExtendida);
             transaction.addToBackStack(null);
             transaction.commit();
         }

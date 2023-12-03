@@ -8,6 +8,7 @@ import com.example.bicofacil.BD.avaliacao.AvaliacaoDao;
 import com.example.bicofacil.BD.favoritos.FavoritosDao;
 import com.example.bicofacil.BD.publicacao.PublicacaoDao;
 import com.example.bicofacil.BD.usuario.UsuarioDao;
+import com.example.bicofacil.navbar.home.EditarPublicacaoViewModel;
 import com.example.bicofacil.navbar.home.FragmentAvaliacaoViewModel;
 import com.example.bicofacil.navbar.home.FragmentPublicacaoViewModel;
 import com.example.bicofacil.navbar.home.OfertaExtendidaViewModel;
@@ -88,11 +89,14 @@ public class ClassesViewModelFactory implements ViewModelProvider.Factory {
             return (T) new OfertasViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao,
                     avaliacaoDao);
         }else if (modelClass.isAssignableFrom(OfertaExtendidaViewModel.class)) {
-            return (T) new OfertaExtendidaViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao,
-                    avaliacaoDao);
+            return (T) new OfertaExtendidaViewModel(usuarioDao, usuarioViewModel, publicacaoDao,
+                    favoritosDao, avaliacaoDao);
         }else if (modelClass.isAssignableFrom(FragmentAvaliacaoViewModel.class)) {
-            return (T) new FragmentAvaliacaoViewModel(usuarioDao, usuarioViewModel, publicacaoDao, favoritosDao,
-                    avaliacaoDao);
+            return (T) new FragmentAvaliacaoViewModel(usuarioDao, usuarioViewModel, publicacaoDao,
+                    favoritosDao, avaliacaoDao);
+        }else if (modelClass.isAssignableFrom(EditarPublicacaoViewModel.class)) {
+            return (T) new EditarPublicacaoViewModel(usuarioDao, usuarioViewModel, publicacaoDao,
+                    favoritosDao, avaliacaoDao);
         }
         throw new IllegalArgumentException("Classe de ViewModel desconhecida");
     }

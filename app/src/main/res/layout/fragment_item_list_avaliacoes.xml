@@ -139,7 +139,7 @@
         android:layout_marginLeft="25dp"
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".navbar.home.OfertaExtendidaFragment"
+        tools:context=".navbar.home.OfertaExtendida"
         tools:listitem="@layout/fragment_item_avaliacao" />
 
         <androidx.appcompat.widget.AppCompatButton
