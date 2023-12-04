@@ -39,11 +39,12 @@
             android:stepSize="1.0"
             android:rating="0"
             android:layout_marginLeft="25dp"
-            style="?android:attr/ratingBarStyleSmall"/>
+            android:enabled="true"
+            style="@android:style/Widget.DeviceDefault.RatingBar" />
 
         <TextView
             android:id="@+id/txtComentario"
-            android:text="Descrição:"
+            android:text="Comentário:"
             android:textSize="20sp"
             style="@style/textViewAddPublicacao"
             app:layout_constraintStart_toStartOf="@id/imageView"
@@ -52,7 +53,7 @@
         <EditText
             android:id="@+id/editComentario"
             style="@style/EditTextAddPublicacao"
-            android:hint="Comentário:"
+            android:hint="Comentário"
             android:inputType="textMultiLine" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -63,6 +64,15 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="20dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_Cacelar"
+            style="@style/ButtonSair"
+            android:text="Cancelar"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            />
 
     </LinearLayout>
 </ScrollView>

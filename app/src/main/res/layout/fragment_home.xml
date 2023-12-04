@@ -22,31 +22,41 @@
             android:text="Incluir publicação"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginBottom="30dp"/>
-
-        <ImageButton
-            android:id="@+id/btnVagas"
-            android:layout_width="360dp"
-            android:layout_marginRight="25dp"
-            android:layout_height="180dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/imageservicos"
-            android:layout_marginLeft="25dp"
-            android:background="@drawable/arredondar_button"
-            android:contentDescription="Selecione uma imagem"
-            android:layout_marginBottom="35dp"/>
-
-        <ImageButton
-            android:id="@+id/btnServicos"
-            android:layout_width="360dp"
-            android:layout_marginRight="25dp"
-            android:layout_height="180dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/imagefreelancers"
-            android:layout_marginLeft="25dp"
-            android:background="@drawable/arredondar_button"
-            android:contentDescription="Selecione uma imagem"
             />
+
+        <RelativeLayout
+            android:id="@+id/semPublicacoes"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="50dp"
+            android:paddingBottom="50dp">
+
+            <ImageButton
+                android:id="@+id/btnVagas"
+                android:layout_width="360dp"
+                android:layout_height="180dp"
+                android:background="@drawable/arredondar_button"
+                android:contentDescription="Selecione uma imagem"
+                android:scaleType="fitCenter"
+                android:src="@drawable/imageservicos"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageButton
+                android:id="@+id/btnServicos"
+                android:layout_width="360dp"
+                android:layout_height="180dp"
+                android:layout_below="@id/btnVagas"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/arredondar_button"
+                android:contentDescription="Selecione uma imagem"
+                android:scaleType="fitCenter"
+                android:src="@drawable/imagefreelancers"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
 
     </LinearLayout>
 </FrameLayout>

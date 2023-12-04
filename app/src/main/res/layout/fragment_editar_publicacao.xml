@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".navbar.home.EditarPublicacao"
+    style="@style/CorTeladeFundo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/topTela" />
+
+
+        <TextView
+            android:id="@+id/txtFoto"
+            android:text="Editar imagem:"
+            android:layout_marginTop="10dp"
+            style="@style/textViewAddPublicacao" />
+
+        <ImageButton
+            android:id="@+id/imageButtonImagem"
+            android:layout_width="match_parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="150dp"
+            android:src="@drawable/baseline_add_photo_alternate_24"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/arredondar_button_com_cor_de_fundo"
+            android:contentDescription="Selecione uma imagem" />
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:text="Título:"
+            android:layout_marginTop="10dp"
+            style="@style/textViewAddPublicacao"/>
+
+        <EditText
+            android:id="@+id/editTitulo"
+            style="@style/EditTextAddPublicacao"
+            android:hint="Título"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtDescricao"
+            android:text="Descrição:"
+            android:layout_marginTop="10dp"
+            style="@style/textViewAddPublicacao"/>
+
+        <EditText
+            android:id="@+id/editDescricao"
+            style="@style/EditTextAddPublicacao"
+            android:hint="Descrição"
+            android:inputType="textMultiLine" />
+
+        <TextView
+            android:id="@+id/txtValor"
+            android:text="Valor:"
+            android:layout_marginTop="10dp"
+            style="@style/textViewAddPublicacao"/>
+
+        <EditText
+            android:id="@+id/editValor"
+            style="@style/EditTextAddPublicacao"
+            android:hint="R$"
+            android:inputType="numberDecimal" />
+        <TextView
+            android:id="@+id/txtHorario"
+            android:text="Horário:"
+            android:layout_marginTop="10dp"
+            style="@style/textViewAddPublicacao"/>
+
+        <EditText
+            android:id="@+id/editHorario"
+            style="@style/EditTextAddPublicacao"
+            android:hint="Das 00:00 às 00:00"
+            android:inputType="text" />
+        <TextView
+            android:id="@+id/txtTelefone"
+            android:text="Telefone para contato:"
+            android:layout_marginTop="10dp"
+            style="@style/textViewAddPublicacao"/>
+
+        <EditText
+            android:id="@+id/editTelefone"
+            style="@style/EditTextAddPublicacao"
+            android:hint="Telefone"
+            android:inputType="phone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_editar"
+            style="@style/ButtonCadastrar"
+            android:text="Editar"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_voltar"
+            style="@style/ButtonCadastrar"
+            android:text="Voltar"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="20dp"/>
+
+
+
+    </LinearLayout>
+</ScrollView>

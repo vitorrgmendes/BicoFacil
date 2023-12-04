@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import com.example.bicofacil.Conexao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
+import com.example.bicofacil.navbar.home.OfertasFragment;
 
 public class Perfil extends Fragment implements View.OnClickListener {
 
@@ -40,6 +40,7 @@ public class Perfil extends Fragment implements View.OnClickListener {
     private Button btnEditar;
     private Button btnAltSenha;
     private TextView deletarConta;
+    private TextView btnMinhasPublicacoes;
     private int id;
 
     public static Perfil newInstance() {
@@ -58,11 +59,13 @@ public class Perfil extends Fragment implements View.OnClickListener {
         btnEditar = view.findViewById(R.id.button_editar);
         btnAltSenha = view.findViewById(R.id.button_alterar_senha);
         deletarConta = view.findViewById(R.id.button_excluir_conta);
+        btnMinhasPublicacoes = view.findViewById(R.id.btn_minhas_publicacoes);
 
         btnSair.setOnClickListener(this);
         btnEditar.setOnClickListener(this);
         btnAltSenha.setOnClickListener(this);
         deletarConta.setOnClickListener(this);
+        btnMinhasPublicacoes.setOnClickListener(this);
 
         return view;
     }
@@ -128,8 +131,6 @@ public class Perfil extends Fragment implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     mViewModel.excluirConta(id);
                     mViewModel.limparCache(getContext());
-                    Log.d("PerfilFragment", "Confirmação recebida:"+mViewModel.getConfirmacao()
-                            .getValue());
                 }
             });
 
@@ -142,6 +143,18 @@ public class Perfil extends Fragment implements View.OnClickListener {
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        }
+
+        if(v == btnMinhasPublicacoes){
+            Bundle bundle = new Bundle();
+            bundle.putString("chave", "publicacoesPorId");
+
+            OfertasFragment ofertasVagaFragment = new OfertasFragment();
+            ofertasVagaFragment.setArguments(bundle);
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
     }
 }
