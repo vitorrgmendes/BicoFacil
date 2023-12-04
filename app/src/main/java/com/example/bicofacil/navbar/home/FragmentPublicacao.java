@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,8 @@ import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 import com.example.bicofacil.navbar.perfil.LoginViewModel;
 
+import java.io.IOException;
+
 public class FragmentPublicacao extends Fragment implements View.OnClickListener{
 
     private FragmentPublicacaoViewModel mViewModel;
@@ -52,7 +55,7 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     private RadioButton opcaoServico;
     private ImageButton imgBtnImagem;
     private int tipoOferta;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_GALERIA = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 101;
     private Bitmap imageBitmap;
     private EditText edtTitulo;
@@ -125,9 +128,10 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission
                         .CAMERA}, REQUEST_CAMERA_PERMISSION);
             } else {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent takePictureIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                takePictureIntent.setType("image/*");
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);}
+                    startActivityForResult(takePictureIntent, 1);}
             }
         }
 
@@ -172,12 +176,18 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
         }
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            imgBtnImagem.setImageBitmap(imageBitmap);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+
+            Uri selectedImageUri = data.getData();
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
+                imgBtnImagem.setImageBitmap(imageBitmap);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -189,7 +199,7 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);}
+                    startActivityForResult(takePictureIntent, REQUEST_GALERIA);}
             } else {
                 Toast.makeText(getActivity(), "Sem permissão para acessar a câmera!",
                         Toast.LENGTH_SHORT).show();

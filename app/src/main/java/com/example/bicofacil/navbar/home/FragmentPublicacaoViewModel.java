@@ -2,6 +2,7 @@ package com.example.bicofacil.navbar.home;
 
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -50,6 +51,7 @@ public class FragmentPublicacaoViewModel extends ViewModel {
                                     String contato) {
         new Thread(() -> {
             try {
+                Log.i("Consulta imagem", "ImagemPublicação:: " + imagemPublicacao);
                 Publicacao novaPublicacao = new Publicacao();
                 novaPublicacao.usuarioId = usuarioViewModel.getId().getValue();
                 novaPublicacao.tipoOferta = tipoOferta;
