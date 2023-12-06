@@ -8,6 +8,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 
+import com.example.bicofacil.BD.publicacao.Publicacao;
+
 import java.util.List;
 
 @Dao
@@ -32,4 +34,10 @@ public interface AvaliacaoDao {
 
     @Query("DELETE FROM avaliacao WHERE publicacaoId = :publicacaoId")
     void deletarAvaliacoesPorPublicacaoId(int publicacaoId);
+
+    @Query("SELECT DISTINCT publicacao.* FROM publicacao JOIN avaliacao ON publicacao.id = avaliacao" +
+            ".publicacaoId WHERE avaliacao.usuarioId = :idUsuario")
+    List<Publicacao> obterPublicacoesAvaliadasPorUsuario(int idUsuario);
+
+
 }

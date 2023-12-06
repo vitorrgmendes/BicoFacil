@@ -41,6 +41,7 @@ public class Perfil extends Fragment implements View.OnClickListener {
     private Button btnAltSenha;
     private TextView deletarConta;
     private TextView btnMinhasPublicacoes;
+    private TextView btnPublicacoesAvaliadas;
     private int id;
 
     public static Perfil newInstance() {
@@ -60,12 +61,14 @@ public class Perfil extends Fragment implements View.OnClickListener {
         btnAltSenha = view.findViewById(R.id.button_alterar_senha);
         deletarConta = view.findViewById(R.id.button_excluir_conta);
         btnMinhasPublicacoes = view.findViewById(R.id.btn_minhas_publicacoes);
+        btnPublicacoesAvaliadas = view.findViewById(R.id.btn_publicacoes_avaliadas);
 
         btnSair.setOnClickListener(this);
         btnEditar.setOnClickListener(this);
         btnAltSenha.setOnClickListener(this);
         deletarConta.setOnClickListener(this);
         btnMinhasPublicacoes.setOnClickListener(this);
+        btnPublicacoesAvaliadas.setOnClickListener(this);
 
         return view;
     }
@@ -148,6 +151,18 @@ public class Perfil extends Fragment implements View.OnClickListener {
         if(v == btnMinhasPublicacoes){
             Bundle bundle = new Bundle();
             bundle.putString("chave", "publicacoesPorId");
+
+            OfertasFragment ofertasVagaFragment = new OfertasFragment();
+            ofertasVagaFragment.setArguments(bundle);
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragmentContainerView, ofertasVagaFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+        if(v == btnPublicacoesAvaliadas){
+            Bundle bundle = new Bundle();
+            bundle.putString("chave", "publicacoesAvaliadas");
 
             OfertasFragment ofertasVagaFragment = new OfertasFragment();
             ofertasVagaFragment.setArguments(bundle);

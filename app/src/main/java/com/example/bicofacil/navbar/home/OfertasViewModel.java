@@ -119,6 +119,11 @@ public class OfertasViewModel extends ViewModel {
                 List<Publicacao> publicacoes = publicacaoDao.obterPublicacoesFavoritas();
                 listaVagas.postValue(publicacoes);
             }
+
+            if( chaveLista == "publicacoesAvaliadas" ){
+                List<Publicacao> publicacoes = avaliacaoDao.obterPublicacoesAvaliadasPorUsuario(usuarioId);
+                listaVagas.postValue(publicacoes);
+            }
         }).start();
     }
 
