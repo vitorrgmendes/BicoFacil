@@ -41,5 +41,6 @@ public interface AvaliacaoDao {
             ".publicacaoId WHERE avaliacao.usuarioId = :idUsuario")
     List<Publicacao> obterPublicacoesAvaliadasPorUsuario(int idUsuario);
 
-
+    @Query("SELECT * FROM avaliacao WHERE id = :avaliacaoId")
+    Avaliacao obterAvaliacaoPorId(int avaliacaoId);
 }

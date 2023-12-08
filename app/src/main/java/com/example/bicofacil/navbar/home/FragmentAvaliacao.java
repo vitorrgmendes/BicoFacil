@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bicofacil.AppDatabase;
@@ -43,7 +44,8 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
     private EditText comentario;
     private Button btnAvaliar;
     private Button btnCancelar;
-
+    private int idAvaliacao;
+    private TextView tituloTela;
     public static FragmentAvaliacao newInstance() {
         return new FragmentAvaliacao();
     }
@@ -55,7 +57,9 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
 
         idPulicacao = getArguments().getInt("idPublicacao");
         chaveVoltar = getArguments().getString("chave");
+        idAvaliacao = getArguments().getInt("idAvaliacao");
 
+        tituloTela = view.findViewById(R.id.txtAvaliacao);
         nota = view.findViewById(R.id.nota);
         comentario = view.findViewById(R.id.editComentario);
         btnAvaliar = view.findViewById(R.id.button_Avaliar);
@@ -63,8 +67,6 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
 
         btnAvaliar.setOnClickListener(this);
         btnCancelar.setOnClickListener(this);
-
-
 
         return view;
     }
@@ -99,6 +101,32 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
                 }
             }
         });
+
+        mViewModel.atualizarCampos(idAvaliacao);
+        mViewModel.getAvaliacao().observe(getViewLifecycleOwner(), avaliacao -> {
+            if (avaliacao != null) {
+                tituloTela.setText("Editar avaliação");
+                nota.setRating(avaliacao.nota);
+                comentario.setText(avaliacao.comentario);
+            }});
+
+        mViewModel.getFimEdicao().observe(getViewLifecycleOwner(), fim -> {
+            if (fim != null) {
+                if(fim){
+                    Toast.makeText(getActivity(), "Avaliação editada com sucesso!",
+                            Toast.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idPublicacao",idPulicacao);
+                    bundle.putString("chave", chaveVoltar);
+                    OfertaExtendida ofertaExtendida = new OfertaExtendida();
+                    ofertaExtendida.setArguments(bundle);
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragmentContainerView, ofertaExtendida);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
     }
 
     @Override
@@ -117,9 +145,14 @@ public class FragmentAvaliacao extends Fragment implements View.OnClickListener{
         }
 
         if(v==btnAvaliar){
+            if(idAvaliacao==0){
             mViewModel.cadastrarAvaliacao(idPulicacao,usuarioViewModel.getId().getValue(),Math.
                     round(nota.getRating()),comentario.getText().toString(),usuarioViewModel.
-                    getNome().getValue());
+                    getNome().getValue());}
+            else {
+                mViewModel.editarAvaliacao(idAvaliacao,Math.round(nota.getRating()),comentario.
+                        getText().toString());
+            }
             }
         }
 }

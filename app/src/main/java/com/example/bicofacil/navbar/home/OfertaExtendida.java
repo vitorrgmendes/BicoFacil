@@ -183,6 +183,20 @@ public class OfertaExtendida extends Fragment implements View.OnClickListener {
             } else {
                 ((MyOfertaExtendidaRecyclerViewAdapter) recyclerView.getAdapter()).updateData(avaliacoes);
             }
+
+            adapter.setItemClickListener((position) -> {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idPublicacao",idPulicacao);
+                    bundle.putString("chave",chaveLista);
+                    bundle.putInt("idAvaliacao",position);
+
+                    FragmentAvaliacao fragmentAvaliacao = new FragmentAvaliacao();
+                    fragmentAvaliacao.setArguments(bundle);
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragmentContainerView, fragmentAvaliacao);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+            });
         });
 
         mViewModel.getFimDelet().observe(getViewLifecycleOwner(), fim -> {

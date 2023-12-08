@@ -25,6 +25,14 @@ public class FragmentAvaliacaoViewModel extends ViewModel {
     public LiveData<Boolean> getFim() {
         return fim;
     }
+    private final MutableLiveData<Boolean> fimEdicao = new MutableLiveData<>();
+    public LiveData<Boolean> getFimEdicao() {
+        return fimEdicao;
+    }
+    private final MutableLiveData<Avaliacao> avaliacao = new MutableLiveData<>();
+    public LiveData<Avaliacao> getAvaliacao() {
+        return avaliacao;
+    }
     public FragmentAvaliacaoViewModel(UsuarioDao usuarioDao, UsuarioViewModel usuarioViewModel,
                                     PublicacaoDao publicacaoDao, FavoritosDao favoritosDao, AvaliacaoDao
                                             avaliacaoDao) {
@@ -48,6 +56,25 @@ public class FragmentAvaliacaoViewModel extends ViewModel {
             avaliacaoDao.inserirAvaliacao(avaliacao);
 
             fim.postValue(true);
+        }).start();
+    }
+
+    public void atualizarCampos(int idAvaliacao){
+        new Thread(() -> {
+            if(idAvaliacao!=0){
+                Avaliacao avaliacaoCarregada = avaliacaoDao.obterAvaliacaoPorId(idAvaliacao);
+                avaliacao.postValue(avaliacaoCarregada);
+            }
+        }).start();
+    }
+
+    public void editarAvaliacao(int idAvaliacao, int nota, String comentario){
+        new Thread(() -> {
+            Avaliacao avaliacaoEditada = avaliacaoDao.obterAvaliacaoPorId(idAvaliacao);
+            avaliacaoEditada.nota = nota;
+            avaliacaoEditada.comentario = comentario;
+            avaliacaoDao.atualizarAvaliacao(avaliacaoEditada);
+            fimEdicao.postValue(true);
         }).start();
     }
 

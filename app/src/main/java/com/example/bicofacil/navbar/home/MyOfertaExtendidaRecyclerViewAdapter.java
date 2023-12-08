@@ -14,8 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bicofacil.BD.avaliacao.Avaliacao;
+import com.example.bicofacil.BD.publicacao.Publicacao;
 import com.example.bicofacil.R;
 import com.example.bicofacil.databinding.FragmentItemAvaliacaoBinding;
 
@@ -71,6 +73,8 @@ public class MyOfertaExtendidaRecyclerViewAdapter extends RecyclerView.Adapter<M
                 public void onClick(DialogInterface dialog, int which) {
                     viewModel.deletarAvaliacao(mValues.get(currentPosition).id, mValues.get
                             (currentPosition).publicacaoId);
+                    Toast.makeText(context, "Avaliação excluída com sucesso!",
+                            Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -84,6 +88,13 @@ public class MyOfertaExtendidaRecyclerViewAdapter extends RecyclerView.Adapter<M
 
             AlertDialog dialog = builder.create();
             dialog.show();
+        });
+
+        holder.btnEditar.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION && listener != null) {
+                listener.onItemClick(mValues.get(currentPosition).id);
+            }
         });
     }
 
