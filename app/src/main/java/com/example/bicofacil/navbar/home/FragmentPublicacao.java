@@ -10,10 +10,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,8 @@ import com.example.bicofacil.UsuarioViewModel;
 import com.example.bicofacil.navBar;
 import com.example.bicofacil.navbar.perfil.LoginViewModel;
 
+import java.io.IOException;
+
 public class FragmentPublicacao extends Fragment implements View.OnClickListener{
 
     private FragmentPublicacaoViewModel mViewModel;
@@ -56,6 +61,7 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     private int tipoOferta;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 101;
+    private static final int PICK_IMAGE_FROM_GALLERY = 2;
     private Bitmap imageBitmap;
     private EditText edtTitulo;
     private EditText edtDescricao;
@@ -124,15 +130,29 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v == imgBtnImagem){
-            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission
-                        .CAMERA}, REQUEST_CAMERA_PERMISSION);
-            } else {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);}
-            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Escolher uma opção");
+            String[] options = {"Tirar uma foto", "Selecionar da galeria"};
+
+            builder.setItems(options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                            }
+                            break;
+                        case 1:
+                            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(galleryIntent, PICK_IMAGE_FROM_GALLERY);
+                            break;
+                    }
+                }
+            });
+
+            builder.show();
         }
 
         if(v == btnLimparFoto){
@@ -154,7 +174,8 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
                         Toast.LENGTH_SHORT).show();
             }
             if(imageBitmap!=null){
-            imagemPublicacao = mViewModel.converterImagemParaBytes(imageBitmap);}
+                imageBitmap = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
+                imagemPublicacao = mViewModel.converterImagemParaBytes(imageBitmap);                }
 
             if((tipoOferta==1 || tipoOferta==2) && mViewModel.validarTitulo(edtTitulo.getText()
                     .toString()) && mViewModel.validarTelefone(edtTelefone.getText().toString()) &&
@@ -184,10 +205,18 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             imgBtnImagem.setImageBitmap(imageBitmap);
+        } else if (requestCode == PICK_IMAGE_FROM_GALLERY && resultCode == RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
+                imgBtnImagem.setImageBitmap(imageBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
