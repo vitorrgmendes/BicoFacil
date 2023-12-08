@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,7 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
     private RadioButton opcaoVaga;
     private RadioButton opcaoServico;
     private ImageButton imgBtnImagem;
+    private ImageButton btnLimparFoto;
     private int tipoOferta;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_CAMERA_PERMISSION = 101;
@@ -82,9 +84,11 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
         edtHorario = view.findViewById(R.id.editHorario);
         edtTelefone = view.findViewById(R.id.editTelefone);
         btnPublicar = view.findViewById(R.id.button_Publicar);
+        btnLimparFoto = view.findViewById(R.id.imgButtonLimparImagem);
 
         imgBtnImagem.setOnClickListener(this);
         btnPublicar.setOnClickListener(this);
+        btnLimparFoto.setOnClickListener(this);
 
         return view;
     }
@@ -129,6 +133,12 @@ public class FragmentPublicacao extends Fragment implements View.OnClickListener
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);}
             }
+        }
+
+        if(v == btnLimparFoto){
+            imgBtnImagem.setImageBitmap(null);
+            imgBtnImagem.setImageResource(R.drawable.baseline_add_photo_alternate_24);
+            imageBitmap = null;
         }
 
         if(v == btnPublicar){

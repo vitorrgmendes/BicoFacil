@@ -47,6 +47,7 @@ public class EditarPublicacao extends Fragment implements View.OnClickListener{
     private PublicacaoDao publicacaoDao;
     private AvaliacaoDao avaliacaoDao;
     private FavoritosDao favoritosDao;
+    private ImageButton btnLimparFoto;
     private int idPulicacao;
     private String chaveLista;
     private ImageButton btnImagem;
@@ -83,10 +84,12 @@ public class EditarPublicacao extends Fragment implements View.OnClickListener{
         edtTelefone = view.findViewById(R.id.editTelefone);
         btnEditar = view.findViewById(R.id.button_editar);
         btnVoltar = view.findViewById(R.id.button_voltar);
+        btnLimparFoto = view.findViewById(R.id.imgButtonLimparImagem);
 
         btnEditar.setOnClickListener(this);
         btnImagem.setOnClickListener(this);
         btnVoltar.setOnClickListener(this);
+        btnLimparFoto.setOnClickListener(this);
 
         return view;
     }
@@ -164,6 +167,12 @@ public class EditarPublicacao extends Fragment implements View.OnClickListener{
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);}
             }
+        }
+
+        if(v == btnLimparFoto){
+            btnImagem.setImageBitmap(null);
+            btnImagem.setImageResource(R.drawable.baseline_add_photo_alternate_24);
+            imagemPublicacao = null;
         }
 
         if(v==btnVoltar){
