@@ -74,4 +74,11 @@ public class OfertaExtendidaViewModel extends ViewModel {
         }).start();
     }
 
+    public void deletarAvaliacao(int idAvaliacao, int idPublicacao){
+        new Thread(() -> {
+            avaliacaoDao.deletarAvaliacaoPorId(idAvaliacao);
+            buscarListaAvaliacoes(idPublicacao);
+        }).start();
+    }
+
 }

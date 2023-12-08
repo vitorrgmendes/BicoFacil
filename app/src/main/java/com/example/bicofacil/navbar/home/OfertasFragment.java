@@ -152,6 +152,10 @@ public class OfertasFragment extends Fragment implements View.OnClickListener{
             txtTitulo.setText("Minhas ofertas favoritas");
         }
 
+        if (chaveLista == "publicacoesAvaliadas") {
+            txtTitulo.setText("Publicações avaliadas");
+        }
+
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
