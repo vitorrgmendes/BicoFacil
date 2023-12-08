@@ -177,7 +177,7 @@ public class OfertaExtendida extends Fragment implements View.OnClickListener {
                 semAvaliacao.setVisibility(View.VISIBLE);
             }
             MyOfertaExtendidaRecyclerViewAdapter adapter = new MyOfertaExtendidaRecyclerViewAdapter
-                    (avaliacoes);
+                    (avaliacoes, usuarioViewModel.getId().getValue(),getContext(),mViewModel);
             if (recyclerView.getAdapter() == null) {
                 recyclerView.setAdapter(adapter);
             } else {
@@ -198,6 +198,7 @@ public class OfertaExtendida extends Fragment implements View.OnClickListener {
                 transaction.commit();
             }
         });
+
     }
 
     @Override

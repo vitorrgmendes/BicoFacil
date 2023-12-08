@@ -22,6 +22,8 @@ public interface AvaliacaoDao {
 
     @Delete
     void deletarAvaliacao(Avaliacao avaliacao);
+    @Query("DELETE FROM avaliacao WHERE id = :avaliacaoId")
+    void deletarAvaliacaoPorId(int avaliacaoId);
 
     @Query("SELECT * FROM avaliacao")
     List<Avaliacao> obterTodasAvaliacoes();
